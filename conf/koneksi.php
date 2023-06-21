@@ -4,7 +4,7 @@
 $namaServer = "localhost"; // isikan sesuai nama server Anda
 $namaPengguna = "root"; //isikan sesuai nama pengguna Basisdata Anda
 $password = ""; //isikan sesuai password Anda
-$nama_db = "";
+$nama_db = "servizio";
 //Membuat koneksi
 $koneksi = new mysqli($namaServer, $namaPengguna, $password, $nama_db);
 //memeriksa apakah koneksi sukses dilakukan
