@@ -419,7 +419,7 @@
                                     <h2 class="text-white font-medium text-xl mb-3">YOUR ORDER IS COMPLETED!</h2>
                                     <p class="text-gray-200 text-sm px-5">Thank you for your order! Your order is being processed and will be completed.</p>
                                     <div class="mt-10">
-                                      <a href="order-history.html" class="bg-primary border border-primary text-white px-4 py-2 text-sm font-medium rounded-md uppercase hover:bg-transparent hover:text-primary transition text-center"
+                                      <a href="order-history.php" class="bg-primary border border-primary text-white px-4 py-2 text-sm font-medium rounded-md uppercase hover:bg-transparent hover:text-primary transition text-center"
                                         >go to order history</a
                                       >
                                     </div>

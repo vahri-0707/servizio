@@ -27,7 +27,7 @@
       <header class="py-4 shadow-sm bg-darkest">
         <div class="container flex items-center justify-between">
           <!-- logo start -->
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo servizio.png" alt="" class="w-32" />
           </a>
           <!-- logo end -->
@@ -53,7 +53,7 @@
 
           <!-- icons start -->
           <div class="space-x-6 flex items-center">
-            <a href="account.html" class="block text-center text-white hover:text-primary transition">
+            <a href="account.php" class="block text-center text-white hover:text-primary transition">
               <div class="text-2xl">
                 <i class="far fa-user"></i>
               </div>
@@ -120,12 +120,12 @@
             <!-- link navbar menu start -->
             <div class="flex items-center justify-between flex-grow pl-12">
               <div class="flex items-center space-x-14 text-base capitalize">
-                <a href="index.html" class="text-textcolor hover:text-primary transition">Home</a>
-                <a href="shop.html" class="text-textcolor hover:text-primary transition">Shop</a>
+                <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
+                <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
                 <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
                 <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
               </div>
-              <a href="login.html" class="ml-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
+              <a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
             </div>
           </div>
           <!-- link navbar menu end -->
@@ -154,7 +154,7 @@
         </div>
         <div class="text-xs leading-3">Search</div>
       </a>
-      <a href="cart.html" class="text-center text-white hover:text-primary transition relative">
+      <a href="cart.php" class="text-center text-white hover:text-primary transition relative">
         <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">3</span>
         <div class="text-2xl">
           <i class="fas fa-shopping-bag"></i>
@@ -173,8 +173,8 @@
         <!-- navlink -->
         <h3 class="text-xl font-semibold text-white mb-1 font-roboto pl-4 pt-4">Menu</h3>
         <div class="">
-          <a href="index.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
-          <a href="shop.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
+          <a href="index.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
+          <a href="shop.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
           <a href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> About Us </a>
           <roa href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Contact Us </roa>
         </div>
@@ -203,7 +203,7 @@
         <div class="mt-6 bg-dark shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
           <!-- single link -->
           <div class="space-y-1 pl-8">
-            <a href="account.html" class="relative text-base font-medium capitalize hover:text-primary transition block text-white">
+            <a href="account.php" class="relative text-base font-medium capitalize hover:text-primary transition block text-white">
               Manage account
               <span class="absolute -left-8 top-0 text-base text-white">
                 <i class="far fa-address-card"></i>
@@ -213,7 +213,7 @@
           <!-- single link end -->
           <!-- single link -->
           <div class="space-y-1 pl-8 pt-4">
-            <a href="order-history.html" class="relative medium capitalize text-primary font-medium hover:text-primary transition block">
+            <a href="order-history.php" class="relative medium capitalize text-primary font-medium hover:text-primary transition block">
               My order history
               <span class="absolute -left-8 top-0 text-base text-white">
                 <i class="fas fa-gift"></i>
@@ -223,7 +223,7 @@
           <!-- single link end -->
           <!-- single link -->
           <div class="pl-8 pt-4">
-            <a href="wishlist.html" class="relative medium capitalize text-white font-medium hover:text-primary transition block">
+            <a href="wishlist.php" class="relative medium capitalize text-white font-medium hover:text-primary transition block">
               delete account
               <span class="absolute -left-8 top-0 text-base text-white">
                 <i class="fas fa-trash"></i>
@@ -252,7 +252,7 @@
         <div class="flex items-center mb-4 gap-3">
           <h1 class="text-base font-semibold text-white flex mr-2">Status</h1>
           <a
-            href="order-history.html"
+            href="order-history.php"
             class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50"
           >
             <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-dark rounded-md group-hover:bg-opacity-0"> Completed </span>
@@ -284,7 +284,7 @@
                   <td class="px-6 py-4">Rp.1.500.000</td>
                   <td class="px-6 py-4">John Doe</td>
                   <td class="px-6 py-4">
-                    <a href="after-complete.html"
+                    <a href="after-complete.php"
                       ><button
                         type="button"
                         class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
