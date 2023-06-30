@@ -1,15 +1,17 @@
 <?php 
 include 'connect.php';
 session_start();
-$loggedin = false;
-$userId = 0;
-$username = '';
-
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
-  $loggedin = true;
+  $loggedin= true;
   $userId = $_SESSION['id_user'];
   $username = $_SESSION['first_name'];
 }
+else{
+  $loggedin = false;
+  $userId = 0;
+}
+
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
