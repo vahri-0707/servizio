@@ -132,23 +132,18 @@ else{
               </div>
             </div>
 
-        <!-- link navbar menu start -->
-        <div class="flex items-center justify-between flex-grow pl-12">
-          <div class="flex items-center space-x-14 text-base capitalize">
-            <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
-            <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
-            <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
-            <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+            <!-- link navbar menu start -->
+            <div class="flex items-center justify-between flex-grow pl-12">
+              <div class="flex items-center space-x-14 text-base capitalize">
+                <a href="index.html" class="text-textcolor hover:text-primary transition">Home</a>
+                <a href="shop.html" class="text-textcolor hover:text-primary transition">Shop</a>
+                <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
+                <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+              </div>
+              <a href="login.html" class="ml-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
+            </div>
           </div>
-          <?php
-          if (isset($_SESSION['first_name'])) {
-            echo '<span class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Selamat Datang ! ' . $_SESSION['first_name'] . '</span>';
-          } else {
-            echo '<a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Register/Login</a>';
-          }
-          ?>
-        </div>
-        <!-- link navbar menu end -->
+          <!-- link navbar menu end -->
         </div>
       </div>
       <!-- navbar end -->
@@ -297,56 +292,71 @@ else{
                 </tr>
               </thead>
               <tbody>
-    <tr class="bg-dark border-b border-gray-600">
-        <?php
-        if ($loggedin) {
-            $query = "SELECT `order`.id_order, order.status_order, produk.id_produk, produk.judul_produk, produk.gambar_produk1, produk.harga_produk, kategori.kategori, freelance.nama_freelance
-                      FROM `order`
-                      INNER JOIN produk ON `order`.id_produk = produk.id_produk
-                      INNER JOIN kategori ON produk.id_kategori = kategori.id_kategori
-                      INNER JOIN freelance ON `order`.id_freelance = freelance.id_freelance
-                      WHERE `order`.id_user = '$userId' AND `order`.status_proses IS NULL";
-
-            $hasil = $conn->query($query);
-            if ($hasil->num_rows > 0) {
-                while ($baris = $hasil->fetch_assoc()) {
-                    $id_order = $baris['id_order'];
-                    $produk = $baris['judul_produk'];
-                    $image = $baris['gambar_produk1'];
-                    $price = $baris['harga_produk'];
-                    $kategori = $baris['kategori'];
-                    $id_produk = $baris['id_produk'];
-                    $namafreelance = $baris['nama_freelance'];
-                    $status = $baris['status_order'];
-                    echo "
-                    <th scope='row' class='px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center'><img class='w-36' src='images/$image' alt='' /></th>
-                    <td class='px-6 py-4'>$produk</td>
-                    <td class='px-6 py-4'>$kategori</td>
-                    <td class='px-6 py-4'>Rp. " . number_format($price, 0) . "</td>
-                    <td class='px-6 py-4'>$namafreelance</td>
-                    <td class='px-6 py-4'>" . (($status !== NULL) ? $status : "Mohon Di Tunggu.") . "</td>
-                    <td class='px-6 py-4'>";
-                    if ($status !== NULL) {
-                        echo "
-                        <form method='post' action='order-Completed.php'>
-                            <input type='hidden' name='id_order' value='" . $baris['id_order'] . "'>
-                            <button type='submit' name='done' class='text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'>
-                                <img class='w-6' src='images/finish.png' alt='' />
-                            </button>
-                        </form>";
-                    }
-                    echo "</td>
-                    </tr>";
-                }
-            } else {
-                echo "<script>
-                alert('Tidak ada OrderOngoin.');
-                </script>";
-            }
-        }
-        ?>
-</tbody>
-
+                <tr class="bg-dark border-b border-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
+                  <td class="px-6 py-4">Web Design</td>
+                  <td class="px-6 py-4">Programming</td>
+                  <td class="px-6 py-4">Rp.1.500.000</td>
+                  <td class="px-6 py-4">John Doe</td>
+                  <td class="px-6 py-4">
+                    <a href="after-complete.html"
+                      ><button
+                        type="button"
+                        class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
+                      >
+                        <img class="w-6" src="images/finish.png" alt="" /></button
+                    ></a>
+                  </td>
+                </tr>
+                <tr class="bg-dark border-b border-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
+                  <td class="px-6 py-4">Web Design</td>
+                  <td class="px-6 py-4">Programming</td>
+                  <td class="px-6 py-4">Rp.1.500.000</td>
+                  <td class="px-6 py-4">John Doe</td>
+                  <td class="px-6 py-4">
+                    <a href="#"
+                      ><button
+                        type="button"
+                        class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
+                      >
+                        <img class="w-6" src="images/finish.png" alt="" /></button
+                    ></a>
+                  </td>
+                </tr>
+                <tr class="bg-dark border-b border-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
+                  <td class="px-6 py-4">Web Design</td>
+                  <td class="px-6 py-4">Programming</td>
+                  <td class="px-6 py-4">Rp.1.500.000</td>
+                  <td class="px-6 py-4">John Doe</td>
+                  <td class="px-6 py-4">
+                    <a href="#"
+                      ><button
+                        type="button"
+                        class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
+                      >
+                        <img class="w-6" src="images/finish.png" alt="" /></button
+                    ></a>
+                  </td>
+                </tr>
+                <tr class="bg-dark border-b border-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
+                  <td class="px-6 py-4">Web Design</td>
+                  <td class="px-6 py-4">Programming</td>
+                  <td class="px-6 py-4">Rp.1.500.000</td>
+                  <td class="px-6 py-4">John Doe</td>
+                  <td class="px-6 py-4">
+                    <a href="#"
+                      ><button
+                        type="button"
+                        class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
+                      >
+                        <img class="w-6" src="images/finish.png" alt="" /></button
+                    ></a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

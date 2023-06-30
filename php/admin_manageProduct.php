@@ -1,3 +1,7 @@
+<?php
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,27 +52,27 @@
 
         <div class="flex flex-col justify-between flex-grow">
           <div class="py-5">
-            <a href="admin_dashboard.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_dashboard.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/dashboard.png" alt="" class="w-5 h-5 mr-5" />
               Dashboard
             </a>
 
-            <a href="admin_orderList.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_orderList.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/list.png" alt="" class="w-5 h-5 mr-5" />
               Order List
             </a>
 
-            <a href="admin_orderReport.html" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_orderReport.php" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/report.png" alt="" class="w-7 h-7 mr-4" />
               Order Report
             </a>
 
-            <a href="admin_manageFreelance.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_manageFreelance.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/freelance.png" alt="" class="w-5 h-5 mr-5" />
               Manage Freelance
             </a>
 
-            <a href="admin_manageProduct.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-primary bg-dark">
+            <a href="admin_manageProduct.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-primary bg-dark">
               <img src="images/manage.png" alt="" class="w-5 h-5 mr-5" />
               Manage Product
             </a>
@@ -130,13 +134,14 @@
                       </div>
                       <!-- Modal body -->
                       <div class="p-6 space-y-6">
-                        <form>
+                        <form action="product.php" method="POST" enctype="multipart/form-data">
                           <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                               <label for="product_title" class="block mb-2 text-sm font-medium text-white">Product Title</label>
                               <input
                                 type="text"
                                 id="product_title"
+                                name="nama_produk"
                                 class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                                 placeholder="Insert product title"
                                 required
@@ -144,7 +149,7 @@
                             </div>
                             <div>
                               <label for="availability" class="block mb-2 text-sm font-medium text-white">Availability</label>
-                              <select id="availability" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
+                              <select id="availability" name="status" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose an availability</option>
                                 <option value="avail">Available</option>
                                 <option value="nonavail">Unavailable</option>
@@ -152,7 +157,7 @@
                             </div>
                             <div>
                               <label for="revision" class="block mb-2 text-sm font-medium text-white">Revision</label>
-                              <select id="revision" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
+                              <select id="revision" name="revisi" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose a revision times</option>
                                 <option value="1time">1 Time</option>
                                 <option value="2times">2 Times</option>
@@ -164,7 +169,7 @@
                             </div>
                             <div>
                               <label for="category" class="block mb-2 text-sm font-medium text-white">Category</label>
-                              <select id="category" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
+                              <select id="category" name="kategori" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose a revision times</option>
                                 <option value="programming">Programming</option>
                                 <option value="videoediting">Video Editing</option>
@@ -176,7 +181,7 @@
                             </div>
                             <div>
                               <label for="delivery" class="block mb-2 text-sm font-medium text-white">Delivery</label>
-                              <select id="delivery" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
+                              <select id="delivery" name="delivery" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose a delivery times</option>
                                 <option value="1day">1 Day</option>
                                 <option value="2days">2 Days</option>
@@ -188,7 +193,7 @@
                             </div>
                             <div>
                               <label for="freelance" class="block mb-2 text-sm font-medium text-white">Freelance</label>
-                              <select id="freelance" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
+                              <select id="freelance" name="freelance_name"class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose a freelancer</option>
                                 <option value="freelancer1">Vahri</option>
                                 <option value="freelancer2">Maul</option>
@@ -202,6 +207,7 @@
                               <input
                                 type="text"
                                 id="product_price"
+                                name="price"
                                 class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                                 placeholder="Insert product price"
                                 required
@@ -212,6 +218,7 @@
                               <input
                                 type="text"
                                 id="product_format"
+                                name="format"
                                 class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                                 placeholder="Insert product format"
                                 required
@@ -223,6 +230,7 @@
                             <input
                               type="text"
                               id="product_desc"
+                              name="deskripsi"
                               class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                               placeholder="Insert product description"
                               required
@@ -232,6 +240,7 @@
                             <label for="message" class="block mb-2 text-sm font-medium text-white">Product Detail</label>
                             <textarea
                               id="message"
+                              name="detail"
                               rows="4"
                               class="block p-2.5 w-full text-sm bg-dark border border-gray-400 text-white rounded-lg focus:ring-primary focus:border-primary"
                               placeholder="Write your product detail here..."
@@ -241,32 +250,43 @@
                           <div class="grid gap-3 mb-6 md:grid-cols-3">
                             <div>
                               <label class="block mb-2 text-sm font-medium text-white" for="photo1">Upload Product Photos</label>
-                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" required />
+                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" name="image1" required />
                               <p class="mt-2 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                             </div>
                             <div>
                               <label class="block mb-2 text-sm font-medium text-white" for="photo2">Upload Product Photos</label>
-                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" required />
+                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" name="image2" required />
                               <p class="mt-2 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                             </div>
                             <div>
                               <label class="block mb-2 text-sm font-medium text-white" for="photo2">Upload Product Photos</label>
-                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" required />
+                              <input class="block w-full text-sm text-white border border-gray-400 rounded-lg cursor-pointer bg-dark focus:outline-none" aria-describedby="file_input_help" id="file_input" name="image3" type="file" required />
                               <p class="mt-2 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                             </div>
                           </div>
-                        </form>
-                      </div>
-                      <!-- Modal footer -->
-                      <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-400 rounded-b">
+                          <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-400 rounded-b">
                         <button
                           data-modal-hide="addproduct"
-                          type="button"
+                          type="submit "
+                          name="insert_produk"
                           class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
                         >
                           Save Changes
                         </button>
                       </div>
+                        </form>
+                      </div>
+                      <!-- Modal footer -->
+                      <!-- <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-400 rounded-b">
+                        <button
+                          data-modal-hide="addproduct"
+                          type="submit "
+                          name="insert_produk"
+                          class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
+                        >
+                          Save Changes
+                        </button>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -292,7 +312,46 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-dark border-b border-gray-600">
+              <!-- view -->
+              <?php
+                $select = "SELECT * FROM produk p JOIN kategori k on p.id_kategori=k.id_kategori";
+                $hasil = mysqli_query($conn,$select);
+                if($hasil->num_rows > 0){
+                while ($baris=$hasil->fetch_assoc()) {
+                    $id_produk=$baris['id_produk'];
+                    $produk=$baris['judul_produk'];
+                    $kategori =$baris['kategori'];
+                    $image=$baris['gambar_produk1'];
+                    $price=$baris['harga_produk'];
+                    $status=$baris['tersedia'];
+                    echo"
+              <tr class='bg-dark border-b border-gray-600'>
+                <th scope='row' class='px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center'><img class='w-36' src='images/product1.jpg' alt='' /></th>
+                <td class='px-6 py-4'>$produk</td>
+                <td class='px-6 py-4'>$kategori</td>
+                <td class='px-6 py-4'>$price</td>
+                <td class='px-6 py-4'>$status</td>
+                <td class='px-6 py-4'>
+                  <button
+                    data-modal-target='addproduct'
+                    data-modal-toggle='addproduct'
+                    type='button'
+                    class='text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'
+                  >
+                    <img class='w-6' src='images/edit.png' alt='' />
+                  </button>
+                  <button
+                    type='button'
+                    class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'
+                  >
+                    <img class='w-6' src='images/delete.png' alt='' />
+                  </button>
+                </td>
+              </tr>
+              ";
+     }}
+     ?>
+              <!-- <tr class="bg-dark border-b border-gray-600">
                 <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
                 <td class="px-6 py-4">Web Design</td>
                 <td class="px-6 py-4">Programming</td>
@@ -406,30 +465,7 @@
                     <img class="w-6" src="images/delete.png" alt="" />
                   </button>
                 </td>
-              </tr>
-              <tr class="bg-dark border-b border-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center"><img class="w-36" src="images/product1.jpg" alt="" /></th>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">Programming</td>
-                <td class="px-6 py-4">Rp.1.500.000</td>
-                <td class="px-6 py-4">Available</td>
-                <td class="px-6 py-4">
-                  <button
-                    data-modal-target="addproduct"
-                    data-modal-toggle="addproduct"
-                    type="button"
-                    class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/edit.png" alt="" />
-                  </button>
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/delete.png" alt="" />
-                  </button>
-                </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

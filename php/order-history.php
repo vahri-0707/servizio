@@ -132,6 +132,7 @@ else{
               </div>
             </div>
 
+<<<<<<< HEAD
         <!-- link navbar menu start -->
         <div class="flex items-center justify-between flex-grow pl-12">
           <div class="flex items-center space-x-14 text-base capitalize">
@@ -139,6 +140,18 @@ else{
             <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
             <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
             <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+=======
+            <!-- link navbar menu start -->
+            <div class="flex items-center justify-between flex-grow pl-12">
+              <div class="flex items-center space-x-14 text-base capitalize">
+                <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
+                <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
+                <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
+                <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+              </div>
+              <a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
+            </div>
+>>>>>>> d171e3735edb720ae22a57c1dda1a34326c4ee23
           </div>
           <?php
           if (isset($_SESSION['first_name'])) {

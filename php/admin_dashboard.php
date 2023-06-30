@@ -1,3 +1,12 @@
+<?php
+include 'connect.php';
+include 'controller_pendapatan.php';
+
+$dataPendapatanBulanan = getPendapatanBulanan($conn);
+$jsonDataPendapatanBulanan = json_encode($dataPendapatanBulanan);
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -121,21 +130,21 @@
             <div class="grid grid-cols-3 grid-flow-row-dense gap-4 mb-4">
               <div class="flex items-center justify-center rounded-lg bg-dark lg:h-full lg:col-span-2 lg:row-span-3 col-span-3 h-60">
                 <div class="h-full w-full px-5 py-5">
-                  <h1 class="flex justify-center text-white text-xl font-semibold mb-2">Pendapatan Tahun 2023</h1>
-                  <canvas class="h-full" id="line-chart"></canvas>
+                  <h1 class="flex justify-center text-white text-xl font-semibold mb-2">Grafik Pendapatan</h1>
+                  <canvas class="h-full" id="pendapatanChart"></canvas>
                 </div>
               </div>
               <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
                 <div class="text-lg text-white font-medium mb-1">Pendapatan hari ini</div>
-                <div class="text-2xl text-primary font-bold">Rp.150.000</div>
+                <div class="text-2xl text-primary font-bold">Rp. <?php echo $totalPendapatanHarian; ?></div>
               </div>
               <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
-                <div class="text-lg text-white font-medium mb-1">Pendapatan hari ini</div>
-                <div class="text-2xl text-primary font-bold">Rp.150.000</div>
+                <div class="text-lg text-white font-medium mb-1">Pendapatan Minggu Ini</div>
+                <div class="text-2xl text-primary font-bold">Rp. <?php echo $totalPendapatanMingguan; ?></div>
               </div>
               <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
-                <div class="text-lg text-white font-medium mb-1">Pendapatan hari ini</div>
-                <div class="text-2xl text-primary font-bold">Rp.150.000</div>
+                <div class="text-lg text-white font-medium mb-1">Pendapatan Tahun ini</div>
+                <div class="text-2xl text-primary font-bold">Rp. <?php echo $totalPendapatanTahunan; ?></div>
               </div>
             </div>
 
@@ -360,27 +369,43 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+    
     <script>
-      new Chart(document.getElementById('line-chart'), {
-        type: 'line',
-        data: {
-          labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
-          datasets: [
-            {
-              data: [186, 205, 1321, 1516, 2107, 2191, 3133, 3221, 4783, 5478],
-              label: 'America',
-              borderColor: '#3cba9f',
-              fill: false,
+        // Mengambil data pendapatan bulanan dari PHP
+        var dataPendapatan = <?php echo $jsonDataPendapatanBulanan; ?>;
+
+        // Membuat array bulan dan pendapatan
+        var bulan = [];
+        var pendapatan = [];
+
+        dataPendapatan.forEach(function(item) {
+            bulan.push(item.bulan);
+            pendapatan.push(item.total_pendapatan);
+        });
+
+        // Membuat line chart
+        var ctx = document.getElementById('pendapatanChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: bulan,
+                datasets: [{
+                    label: 'Pendapatan',
+                    data: pendapatan,
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
             },
-          ],
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Chart JS Line Chart Example',
-          },
-        },
-      });
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
+
   </body>
 </html>
