@@ -1,11 +1,12 @@
-<?php
+<?php 
 include 'connect.php';
-
-
 session_start();
-
-if(!isset($_SESSION['email'])){
-  header("Location: admin_manageFreelance.php");
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+  $loggedin= true;
+}
+else{
+  $loggedin = false;
+  $userId = 0;
 }
 ?>
 
@@ -43,7 +44,7 @@ if(!isset($_SESSION['email'])){
               <div class="px-4 py-2 text-xs text-gray-200">Manage Account</div>
               <a href="#" class="block px-4 py-2 text-sm leading-5 text-white hover:bg-primary transition">Profile</a>
               <div class="border-t border-gray-700"></div>
-              <a href="#" class="block px-4 py-2 text-sm leading-5 text-white hover:bg-primary transition">Logout</a>
+              <a href="logout.php" class="block px-4 py-2 text-sm leading-5 text-white hover:bg-primary transition">Logout</a>
             </div>
           </div>
         </div>
@@ -182,11 +183,11 @@ if(!isset($_SESSION['email'])){
                               <select id="position" name="position" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose a position</option>
                                 <?php
-                                $select = "SELECT * FROM posisi ";
+                                $select = "SELECT * FROM kategori ";
                                 $hasil = mysqli_query($conn,$select);
                                 while($baris=mysqli_fetch_assoc($hasil)) {
-                                  $posisi = $baris['posisi'];
-                                  $id_posisi=$baris['id_posisi'];
+                                  $posisi = $baris['kategori'];
+                                  $id_posisi=$baris['id_kategori'];
                                   echo"
                                   <option value='$id_posisi'>$posisi</option>";
                                 }
@@ -268,12 +269,12 @@ if(!isset($_SESSION['email'])){
             <!-- View -->                    
             <tbody>
             <?php
-            $select = "SELECT * FROM freelance JOIN posisi ON freelance.id_posisi = posisi.id_posisi";
+            $select = "SELECT * FROM freelance JOIN kategori ON freelance.id_kategori = kategori.id_kategori";
             $hasil = mysqli_query($conn,$select);
             if($hasil->num_rows > 0){
               while ($baris=$hasil->fetch_assoc()){
                 $id_freelance=$baris['id_freelance'];
-                $id_posisi=$baris['posisi'];
+                $id_posisi=$baris['kategori'];
                 $nama_freelance=$baris['nama_freelance'];
                 $status_freelance=$baris['status_freelance'];
                 $image1=$baris['foto_Freelance'];

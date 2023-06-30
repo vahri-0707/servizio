@@ -1,3 +1,16 @@
+<?php 
+include 'connect.php';
+session_start();
+$loggedin = false;
+$userId = 0;
+$username = '';
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+  $loggedin = true;
+  $userId = $_SESSION['id_user'];
+  $username = $_SESSION['first_name'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,35 +44,29 @@
           </a>
           <!-- logo end -->
 
-          <!-- search engine start -->
-          <div class="w-full xl:max-w-xl lg:max-w-lg lg:flex relative hidden">
-            <span class="absolute left-4 top-3 text-lg text-gray-400">
-              <i class="fas fa-search"></i>
-            </span>
-            <input
-              type="text"
-              class="text-white bg-darkest pl-12 w-full border border-r-0 border-primary py-3 px-3 rounded-l-md focus:ring-primary focus:border-primary focus:bg-darkest"
-              placeholder="What services are you looking for today?"
-            />
-            <button
-              type="submit"
-              class="bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-8 font-medium rounded-r-md hover:bg-transparent transition"
-            >
-              Search
-            </button>
-          </div>
-          <!-- search engine end -->
+        <!-- search engine start -->
+        <form action="search.php" method="GET" class="w-full xl:max-w-xl lg:max-w-lg lg:flex relative hidden">
+          <span class="absolute left-4 top-3 text-lg text-gray-400">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" name="produk" class="text-white bg-dark pl-12 w-full border border-r-0 border-primary py-3 px-3 rounded-l-md focus:ring-primary focus:border-primary focus:bg-darkest" placeholder="What services are you looking for today?" />
+          <button type="submit" name="cari" class="bg-[#00ADB5] border border-primary text-white px-8 font-medium rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+        </form>
+        <!-- search engine end -->
 
-          <!-- icons start -->
-          <div class="space-x-6 flex items-center">
-            <a href="account.php" class="block text-center text-white hover:text-primary transition">
-              <div class="text-2xl">
-                <i class="far fa-user"></i>
-              </div>
-              <div class="text-xs leading-3">Account</div>
-            </a>
-          </div>
-          <!-- icons end -->
+        <!-- icons start -->
+        <div class="space-x-6 flex items-center">
+        <?php
+  if ($loggedin) {
+        echo"  <a href='account.php' class='block text-center text-white hover:text-primary transition'>
+            <div class='text-2xl'>
+              <i class='far fa-user'></i>
+            </div>
+            <div class='text-xs leading-3'>Account</div>
+          </a>";
+  }?>
+        </div>
+        <!-- icons end -->
         </div>
       </header>
       <!-- header end -->
@@ -78,37 +85,37 @@
               <span class="capitalize ml-2 text-textcolor font-medium">All categories</span>
               <div class="absolute left-0 top-full w-full bg-dark shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300 z-50 divide-y divide-gray-300 divide-dashed">
                 <!-- first category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=1" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/programming.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Programming</span>
                 </a>
                 <!-- first category end -->
                 <!-- second category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=2" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/videoediting.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Video Editing</span>
                 </a>
                 <!-- second category end -->
                 <!-- third category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=3" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/graphicdesign.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Design Graphic</span>
                 </a>
                 <!-- third category end -->
                 <!-- fourth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=4" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/digitalmarketing.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Digital Marketing</span>
                 </a>
                 <!-- fourth category end -->
                 <!-- fifth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=5" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/musicaudio.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Music & Audio</span>
                 </a>
                 <!-- fifth category end -->
                 <!-- sixth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=6" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons//writing.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Writing</span>
                 </a>
@@ -116,22 +123,28 @@
               </div>
             </div>
 
-            <!-- link navbar menu start -->
-            <div class="flex items-center justify-between flex-grow pl-12">
-              <div class="flex items-center space-x-14 text-base capitalize">
-                <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
-                <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
-                <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
-                <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
-              </div>
-              <a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
-            </div>
-          </div>
-          <!-- link navbar menu end -->
+<!-- link navbar menu start -->
+<div class="flex items-center justify-between flex-grow pl-12">
+  <div class="flex items-center space-x-14 text-base capitalize">
+    <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
+    <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
+    <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
+    <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+  </div>
+  <?php
+  if (isset($_SESSION['first_name'])) {
+    echo '<span class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Selamat Datang ! ' . $_SESSION['first_name'] . '</span>';
+  } else {
+    echo '<a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Register/Login</a>';
+  }
+  ?>
+</div>
+<!-- link navbar menu end -->
+
         </div>
       </div>
-      <!-- navbar end -->
     </nav>
+    <!-- navbar end -->
 
     <!-- mobile menubar -->
     <div class="fixed w-full border-t border-gray-500 shadow-sm bg-dark py-3 bottom-0 left-0 flex justify-around items-start px-6 lg:hidden z-40">
@@ -281,568 +294,113 @@
         <!-- first category start -->
         <div class="relative group rounded-sm overflow-hidden" >
           <img src="images/category/category-1.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Programming </a>
+          <a href="kategori.php?id=1" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Programming </a>
         </div>
         <!-- first category end -->
         <!-- second category start -->
         <div class="relative group rounded-sm overflow-hidden">
           <img src="images/category/category-5.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Video Editing </a>
+          <a href="kategori.php?id=2" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Video Editing </a>
         </div>
         <!-- second category end -->
         <!-- third category start -->
         <div class="relative group rounded-sm overflow-hidden">
           <img src="images/category/category-3.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Design Graphic </a>
+          <a href="kategori.php?id=3" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Design Graphic </a>
         </div>
         <!-- third category end -->
         <!-- fourth category start -->
         <div class="relative group rounded-sm overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
           <img src="images/category/category-4.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Digital Marketing </a>
+          <a href="kategori.php?id=4" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Digital Marketing </a>
         </div>
         <!-- fourth category end -->
         <!-- fifth category start -->
         <div class="relative group rounded-sm overflow-hidden" data-aos="fade-up" data-aos-duration="1500">
           <img src="images/category/category-2.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Music & Audio </a>
+          <a href="kategori.php?id=5" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Music & Audio </a>
         </div>
         <!-- fifth category end -->
         <!-- sixth category start -->
         <div class="relative group rounded-sm overflow-hidden" data-aos="fade-up" data-aos-duration="2000">
           <img src="images/category/category-6.jpg" class="w-full" />
-          <a href="#" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Writing </a>
+          <a href="kategori.php?id=6" class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 flex items-center justify-center text-xl text-white font-roboto font-medium tracking-wide transition"> Writing </a>
         </div>
         <!-- sixth category end -->
       </div>
     </div>
     <!-- categories end -->
-
-    <!-- product start  -->
-    <div class="container pt-16">
+<!-- product start  -->
+<div class="container pt-16">
       <h2 class="text-2xl md:text-3xl font-medium text-white uppercase mb-6" data-aos="fade-up" data-aos-duration="500">new arrival</h2>
       <!-- grid start -->
       <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-6">
         <!-- first product start-->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
           <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
+          <?php
+           $select = "SELECT kategori.kategori, kategori.id_kategori,produk.id_produk, produk.judul_produk ,produk.tersedia, produk.harga_produk, produk.gambar_produk1
+           FROM produk JOIN kategori ON (produk.id_kategori=kategori.id_kategori)
+           WHERE kategori.id_kategori=8 ";
+           $hasil = mysqli_query($conn,$select);
+           if($hasil->num_rows > 0){
+           while ($baris=$hasil->fetch_assoc()) {
+               $id_produk=$baris['id_produk'];
+               $produk=$baris['judul_produk'];
+               $image=$baris['gambar_produk1'];
+               $price=$baris['harga_produk'];
+               $status=$baris['tersedia'];
+               echo"
+               <div class='group rounded bg-dark shadow overflow-hidden' data-aos='fade-left' data-aos-duration='1000'>
+          <div class='relative'>
+            <img src='/servizio/dist/images/$image' class='w-full' />
+            <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
             </div>
           </div>
           <!-- product image end -->
           <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <div class="flex justify-between">
-              <a href="view.php">
-                <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-              </a>
-              <h1 class="bg-red-500 bg-opacity-30 text-red-500 px-1 py-2  font-semibold rounded-md text-sm">Unavailable</h1>
+          <div class='pt-4 pb-3 px-4'>";
+            if ($status == 'available') {
+              echo "<a href='view.php?id=$id_produk'>
+              ";
+            }echo "
+              <h4 class='font-medium text-xl mb-2 text-white hover:text-primary transition'>$produk</h4>
+            </a>
+            <div class='flex items-baseline mb-1'>
+              <p class='text-xl text-primary font-roboto font-semibold'>Rp. " . number_format($price, 0) . "</p>
             </div>
-            
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
+            <div class='flex items-center'>
+              <div class='flex gap-1 text-sm text-yellow-400'>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+              </div>
+              <p class='ml-2 mt-[2px] text-white font-semibold'>4</p>
             </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
           </div>
+          ";
+                    if ($status == 'unavailable') {
+                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                    }
+                    echo "   
           <!-- product content end -->
           <!-- product button start -->
-          <a href="view.php" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
+                ";
+        if ($status == 'available') {
+          echo "<a href='view.php?id=$id_produk' class='block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition'> CHECKOUT </a>";
+       }
+      //  product button end
+        echo"
+          </div>";
+        }}
+        ?>
         </div>
         <!-- first product end -->
-
-        <!-- second product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- second product end -->
-
-        <!-- third product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- third product end -->
-
-        <!-- fourth product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- fourth product end -->
-
-        <!-- fifth product start-->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- fifth product end -->
-
-        <!-- sixth product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- sixth product end -->
-
-        <!-- seventh product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- seventh product end -->
-
-        <!-- eighth product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- eighth product end -->
       </div>
       <!-- grid end -->
     </div>
     <!-- product end -->
-
     <!-- banner start -->
     <div class="container pt-16" data-aos="fade-up" data-aos-duration="1000">
       <a href="#">
@@ -851,270 +409,77 @@
     </div>
     <!-- banner end -->
 
-    <!-- product (recommended) start  -->
-    <div class="container pt-16">
-      <h2 class="text-2xl md:text-3xl font-medium text-white mb-6 uppercase" data-aos="fade-up" data-aos-duration="500">best selling</h2>
+    <!-- product start  -->
+<div class="container pt-16">
+      <h2 class="text-2xl md:text-3xl font-medium text-white uppercase mb-6" data-aos="fade-up" data-aos-duration="500">Best Seller</h2>
       <!-- grid start -->
       <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-6">
         <!-- first product start-->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
           <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
+          <?php
+           $select = "SELECT kategori.kategori, kategori.id_kategori,produk.id_produk, produk.judul_produk ,produk.tersedia, produk.harga_produk, produk.gambar_produk1
+           FROM produk JOIN kategori ON (produk.id_kategori=kategori.id_kategori)
+           WHERE kategori.id_kategori=7 ";
+           $hasil = mysqli_query($conn,$select);
+           if($hasil->num_rows > 0){
+           while ($baris=$hasil->fetch_assoc()) {
+               $id_produk=$baris['id_produk'];
+               $produk=$baris['judul_produk'];
+               $image=$baris['gambar_produk1'];
+               $price=$baris['harga_produk'];
+               $status=$baris['tersedia'];
+               echo"
+               <div class='group rounded bg-dark shadow overflow-hidden' data-aos='fade-left' data-aos-duration='1000'>
+          <div class='relative'>
+            <img src='/servizio/dist/images/$image' class='w-full' />
+            <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
             </div>
           </div>
           <!-- product image end -->
           <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
+          <div class='pt-4 pb-3 px-4'>";
+            if ($status == 'available') {
+              echo "<a href='view.php?id=$id_produk'>
+              ";
+            }echo "
+              <h4 class='font-medium text-xl mb-2 text-white hover:text-primary transition'>$produk</h4>
             </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
+            <div class='flex items-baseline mb-1'>
+              <p class='text-xl text-primary font-roboto font-semibold'>Rp. " . number_format($price, 0) . "</p>
             </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
+            <div class='flex items-center'>
+              <div class='flex gap-1 text-sm text-yellow-400'>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+                <span><i class='fas fa-star'></i></span>
+              </div>
+              <p class='ml-2 mt-[2px] text-white font-semibold'>rating</p>
             </div>
-            
           </div>
+          ";
+                    if ($status == 'unavailable') {
+                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                    }
+                    echo "   
           <!-- product content end -->
           <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
+                ";
+        if ($status == 'available') {
+          echo "<a href='view.php?id=$id_produk' class='block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition'> CHECKOUT </a>";
+       }
+      //  product button end
+        echo"
+          </div>";
+        }}
+        ?>
         </div>
         <!-- first product end -->
-
-        <!-- second product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- second product end -->
-
-        <!-- third product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- third product end -->
-
-        <!-- fourth product start -->
-        <div class="group rounded bg-dark shadow overflow-hidden" data-aos="fade-left" data-aos-duration="1000">
-          <!-- product image start -->
-          <div class="relative">
-            <img src="images/products/product9.jpg" class="w-full" />
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">             
-            </div>
-          </div>
-          <!-- product image end -->
-          <!-- product content start -->
-          <div class="pt-4 pb-3 px-4">
-            <a href="view.php">
-              <h4 class="font-medium text-xl mb-2 text-white hover:text-primary transition">UI/UX Design</h4>
-            </a>
-            <div class="flex items-baseline mb-1">
-              <p class="text-xl text-primary font-roboto font-semibold">Rp. 500.000,00</p>
-            </div>
-            <div class="flex  items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-3 text-yellow-300 fill-yellow-300">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                />
-              </svg>
-              <p class="mt-[2px] text-white font-semibold">4</p>
-            </div>
-            
-          </div>
-          <!-- product content end -->
-          <!-- product button start -->
-          <a href="#" class="block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition"> CHECKOUT </a>
-          <!-- product button end -->
-        </div>
-        <!-- fourth product end -->
       </div>
       <!-- grid end -->
     </div>
-    <!-- product (recommended) end -->
+    <!-- product end -->
 
     <!-- footer start -->
     <footer class="bg-darkest pt-16 pb-12 mt-20 border-t border-gray-500" data-aos="fade-up" data-aos-duration="1000">
@@ -1211,15 +576,15 @@
       });
     </script>
 
-    <!-- carousel -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+      <!-- carousel -->
+      <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
       const swiper = new Swiper('.swiper', {
         // Optional parameters
         speed: 400,
         spaceBetween: 100,
         autoplay: {
-          delay: 2000,
+          delay: 3000,
         },
         // If we need pagination
         pagination: {

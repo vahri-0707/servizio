@@ -1,3 +1,9 @@
+<?php
+
+include 'connect.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,12 +57,7 @@
 
           <!-- icons start -->
           <div class="space-x-6 flex items-center">
-            <a href="account.php" class="block text-center text-white hover:text-primary transition">
-              <div class="text-2xl">
-                <i class="far fa-user"></i>
-              </div>
-              <div class="text-xs leading-3">Account</div>
-            </a>
+           
           </div>
           <!-- icons end -->
         </div>
@@ -253,7 +254,7 @@
           </a>
         </div>
         <!-- login with social media end -->
-        <p class="mt-4 text-gray-200 text-center">Dont have an account? <a href="register.php" class="text-primary">Register</a></p>
+        <p class="mt-4 text-gray-200 text-center">Dont have an account? <a href="register_page.php" class="text-primary">Register</a></p>
       </div>
     </div>
     <!-- form container end -->

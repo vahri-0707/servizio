@@ -48,27 +48,27 @@
 
         <div class="flex flex-col justify-between flex-grow">
           <div class="py-5">
-            <a href="admin_dashboard.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_dashboard.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/dashboard.png" alt="" class="w-5 h-5 mr-5" />
               Dashboard
             </a>
 
-            <a href="admin_orderList.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_orderList.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/list.png" alt="" class="w-5 h-5 mr-5" />
               Order List
             </a>
 
-            <a href="admin_orderReport.html" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-primary bg-dark">
+            <a href="admin_orderReport.php" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-primary bg-dark">
               <img src="images/report.png" alt="" class="w-7 h-7 mr-4" />
               Order Report
             </a>
 
-            <a href="admin_manageFreelance.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_manageFreelance.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/freelance.png" alt="" class="w-5 h-5 mr-5" />
               Manage Freelance
             </a>
 
-            <a href="admin_manageProduct.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_manageProduct.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/manage.png" alt="" class="w-5 h-5 mr-5" />
               Manage Product
             </a>
@@ -242,7 +242,7 @@
                   </button>
                 </td>
               </tr>
-              3
+              
             </tbody>
           </table>
         </div>

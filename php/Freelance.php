@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
         move_uploaded_file($temp_name, $target_path);
 
         // insert  
-        $submit = "INSERT INTO freelance (id_posisi, nama_freelance, status_freelance, No_HP, foto_Freelance, freelance_email, massage) VALUES 
+        $submit = "INSERT INTO freelance (id_kategori, nama_freelance, status_freelance, No_HP, foto_Freelance, freelance_email, massage) VALUES 
         ('$position', '$freelance_name', '$status_f', '$freelance_phone', '$filename', '$freelance_email', '$message');";
         $result = mysqli_query($conn, $submit);
 

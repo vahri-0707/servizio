@@ -1,3 +1,18 @@
+<?php 
+include 'connect.php';
+session_start();
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+  $loggedin= true;
+  $userId = $_SESSION['id_user'];
+  $username = $_SESSION['first_name'];
+}
+else{
+  $loggedin = false;
+  $userId = 0;
+}
+
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,7 +40,7 @@
       <header class="py-4 shadow-sm bg-darkest">
         <div class="container flex items-center justify-between">
           <!-- logo start -->
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo servizio.png" alt="" class="w-32" />
           </a>
           <!-- logo end -->
@@ -51,7 +66,7 @@
 
           <!-- icons start -->
           <div class="space-x-6 flex items-center">
-            <a href="account.html" class="block text-center text-white hover:text-primary transition">
+            <a href="account.php" class="block text-center text-white hover:text-primary transition">
               <div class="text-2xl">
                 <i class="far fa-user"></i>
               </div>
@@ -118,12 +133,12 @@
             <!-- link navbar menu start -->
             <div class="flex items-center justify-between flex-grow pl-12">
               <div class="flex items-center space-x-14 text-base capitalize">
-                <a href="index.html" class="text-textcolor hover:text-primary transition">Home</a>
-                <a href="shop.html" class="text-textcolor hover:text-primary transition">Shop</a>
+                <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
+                <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
                 <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
                 <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
               </div>
-              <a href="login.html" class="m l-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
+              <a href="login.php" class="m l-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
             </div>
           </div>
           <!-- link navbar menu end -->
@@ -152,7 +167,7 @@
         </div>
         <div class="text-xs leading-3">Search</div>
       </a>
-      <a href="cart.html" class="text-center text-white hover:text-primary transition relative">
+      <a href="cart.php" class="text-center text-white hover:text-primary transition relative">
         <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">3</span>
         <div class="text-2xl">
           <i class="fas fa-shopping-bag"></i>
@@ -171,8 +186,8 @@
         <!-- navlink -->
         <h3 class="text-xl font-semibold text-white mb-1 font-roboto pl-4 pt-4">Menu</h3>
         <div class="">
-          <a href="index.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
-          <a href="shop.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
+          <a href="index.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
+          <a href="shop.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
           <a href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> About Us </a>
           <roa href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Contact Us </roa>
         </div>
@@ -235,7 +250,7 @@
                     <p class="text-white font-semibold text-base">Rate for our product :</p>
                     <ul class="grid w-full gap-6 md:grid-cols-5 grid-cols-3">
                       <li>
-                        <input type="radio" id="rate1" name="rate" value="rate1" class="hidden peer" />
+                        <input type="radio" id="rate1" name="rate" value="1" class="hidden peer" />
                         <label
                           for="rate1"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -245,7 +260,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="rate2" name="rate" value="rate2" class="hidden peer" />
+                        <input type="radio" id="rate2" name="rate" value="2" class="hidden peer" />
                         <label
                           for="rate2"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -255,7 +270,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="rate3" name="rate" value="rate3" class="hidden peer" />
+                        <input type="radio" id="rate3" name="rate" value="3" class="hidden peer" />
                         <label
                           for="rate3"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -265,7 +280,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="rate4" name="rate" value="rate4" class="hidden peer" />
+                        <input type="radio" id="rate4" name="rate" value="4" class="hidden peer" />
                         <label
                           for="rate4"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -275,7 +290,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="rate5" name="rate" value="rate5" class="hidden peer" />
+                        <input type="radio" id="rate5" name="rate" value="5" class="hidden peer" />
                         <label
                           for="rate5"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -287,7 +302,7 @@
                     <p class="text-white font-semibold text-base">Rate for our freelance :</p>
                     <ul class="grid w-full gap-6 md:grid-cols-5 grid-cols-3">
                       <li>
-                        <input type="radio" id="ratefreelance1" name="ratefreelance" value="ratefreelance1" class="hidden peer" />
+                        <input type="radio" id="ratefreelance1" name="ratefreelance" value="1" class="hidden peer" />
                         <label
                           for="ratefreelance1"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -297,7 +312,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="ratefreelance2" name="ratefreelance" value="ratefreelance2" class="hidden peer" />
+                        <input type="radio" id="ratefreelance2" name="ratefreelance" value="2" class="hidden peer" />
                         <label
                           for="ratefreelance2"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -307,7 +322,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="ratefreelance3" name="ratefreelance" value="ratefreelance3" class="hidden peer" />
+                        <input type="radio" id="ratefreelance3" name="ratefreelance" value="3" class="hidden peer" />
                         <label
                           for="ratefreelance3"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -317,7 +332,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="ratefreelance4" name="ratefreelance" value="ratefreelance4" class="hidden peer" />
+                        <input type="radio" id="ratefreelance4" name="ratefreelance" value="4" class="hidden peer" />
                         <label
                           for="ratefreelance4"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -327,7 +342,7 @@
                       </li>
 
                       <li>
-                        <input type="radio" id="ratefreelance5" name="ratefreelance" value="ratefreelance5" class="hidden peer" />
+                        <input type="radio" id="ratefreelance5" name="ratefreelance" value="5" class="hidden peer" />
                         <label
                           for="ratefreelance5"
                           class="inline-flex items-center justify-center w-12 h-12 p-8 text-white bg-dark border border-gray-400 rounded-full cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800"
@@ -339,13 +354,16 @@
                   </div>
                   <!-- Modal footer -->
                   <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-400 rounded-b">
+                    <a href = "order-history.php">
                     <button
                       data-modal-hide="small-modal"
-                      type="button"
+                      type="submit"
+                      name="submit"
                       class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
                     >
                       Submit
                     </button>
+                    </a>
                   </div>
                 </div>
               </div>
