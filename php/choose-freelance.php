@@ -1,3 +1,18 @@
+<?php 
+include 'connect.php';
+session_start();
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+  $loggedin= true;
+  $userId = $_SESSION['id_user'];
+  $username = $_SESSION['first_name'];
+}
+else{
+  $loggedin = false;
+  $userId = 0;
+}
+
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,7 +40,7 @@
       <header class="py-4 shadow-sm bg-darkest">
         <div class="container flex items-center justify-between">
           <!-- logo start -->
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo servizio.png" alt="" class="w-32" />
           </a>
           <!-- logo end -->
@@ -51,13 +66,16 @@
 
           <!-- icons start -->
           <div class="space-x-6 flex items-center">
-            <a href="account.html" class="block text-center text-white hover:text-primary transition">
-              <div class="text-2xl">
-                <i class="far fa-user"></i>
-              </div>
-              <div class="text-xs leading-3">Account</div>
-            </a>
-          </div>
+        <?php
+  if ($loggedin) {
+        echo"  <a href='account.php' class='block text-center text-white hover:text-primary transition'>
+            <div class='text-2xl'>
+              <i class='far fa-user'></i>
+            </div>
+            <div class='text-xs leading-3'>Account</div>
+          </a>";
+  }?>
+        </div>
           <!-- icons end -->
         </div>
       </header>
@@ -77,37 +95,37 @@
               <span class="capitalize ml-2 text-textcolor font-medium">All categories</span>
               <div class="absolute left-0 top-full w-full bg-dark shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300 z-50 divide-y divide-gray-300 divide-dashed">
                 <!-- first category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=1" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/programming.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Programming</span>
                 </a>
                 <!-- first category end -->
                 <!-- second category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=2" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/videoediting.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Video Editing</span>
                 </a>
                 <!-- second category end -->
                 <!-- third category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=3" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/graphicdesign.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Design Graphic</span>
                 </a>
                 <!-- third category end -->
                 <!-- fourth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=4" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/digitalmarketing.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Digital Marketing</span>
                 </a>
                 <!-- fourth category end -->
                 <!-- fifth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=5" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons/musicaudio.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Music & Audio</span>
                 </a>
                 <!-- fifth category end -->
                 <!-- sixth category -->
-                <a href="#" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
+                <a href="kategori.php?id=6" class="px-6 py-3 flex items-center hover:bg-[#484F59] transition">
                   <img src="images/icons//writing.png" class="w-5 h-5 object-contain" />
                   <span class="ml-6 text-white text-xs">Writing</span>
                 </a>
@@ -116,17 +134,22 @@
             </div>
 
             <!-- link navbar menu start -->
-            <div class="flex items-center justify-between flex-grow pl-12">
-              <div class="flex items-center space-x-14 text-base capitalize">
-                <a href="index.html" class="text-textcolor hover:text-primary transition">Home</a>
-                <a href="shop.html" class="text-textcolor hover:text-primary transition">Shop</a>
-                <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
-                <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
-              </div>
-              <a href="login.html" class="m l-auto justify-self-end text-textcolor hover:text-primary transition"> Register/Login </a>
-            </div>
-          </div>
-          <!-- link navbar menu end -->
+<div class="flex items-center justify-between flex-grow pl-12">
+  <div class="flex items-center space-x-14 text-base capitalize">
+    <a href="index.php" class="text-textcolor hover:text-primary transition">Home</a>
+    <a href="shop.php" class="text-textcolor hover:text-primary transition">Shop</a>
+    <a href="#" class="text-textcolor hover:text-primary transition">About us</a>
+    <a href="#" class="text-textcolor hover:text-primary transition">Contact us</a>
+  </div>
+  <?php
+  if (isset($_SESSION['first_name'])) {
+    echo '<span class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Selamat Datang ! ' . $_SESSION['first_name'] . '</span>';
+  } else {
+    echo '<a href="login.php" class="ml-auto justify-self-end text-textcolor hover:text-primary transition">Register/Login</a>';
+  }
+  ?>
+</div>
+<!-- link navbar menu end -->
         </div>
       </div>
       <!-- navbar end -->
@@ -152,7 +175,7 @@
         </div>
         <div class="text-xs leading-3">Search</div>
       </a>
-      <a href="cart.html" class="text-center text-white hover:text-primary transition relative">
+      <a href="cart'php" class="text-center text-white hover:text-primary transition relative">
         <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">3</span>
         <div class="text-2xl">
           <i class="fas fa-shopping-bag"></i>
@@ -171,8 +194,8 @@
         <!-- navlink -->
         <h3 class="text-xl font-semibold text-white mb-1 font-roboto pl-4 pt-4">Menu</h3>
         <div class="">
-          <a href="index.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
-          <a href="shop.html" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
+          <a href="index.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Home </a>
+          <a href="shop.php" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Shop </a>
           <a href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> About Us </a>
           <roa href="#" class="block px-4 py-2 font-medium transition text-white hover:bg-gray-300"> Contact Us </roa>
         </div>
@@ -183,37 +206,46 @@
 
     <!-- form container start-->
     <div class="container py-16 pt-48 w-[700px]">
-      <div class="bg-dark rounded-lg shadow-xl">
-        <div class="flex justify-end"></div>
-        <div class="flex flex-col items-center pb-10 pt-10 px-4">
-          <img class="w-48 h-48 mb-3 rounded-full shadow-lg object-cover" src="images/freelance.jpg" alt="Bonnie image" />
-          <div class="flex">
-            <h5 class="mb-1 text-2xl font-medium text-white pr-3 pt-1">John Doe</h5>
-            <div class="flex justify-center items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-1 text-yellow-300 fill-yellow-300">
+    <?php
+    $id_freelance=$_GET['id'];
+    $select = "SELECT freelance.nama_freelance, freelance.foto_Freelance, freelance.id_kategori, freelance.massage, kategori.kategori
+    FROM freelance JOIN kategori ON (freelance.id_kategori=kategori.id_kategori)
+    WHERE freelance.id_freelance = $id_freelance";
+      $hasil = mysqli_query($conn,$select);
+      if($hasil->num_rows > 0){
+      while ($baris=$hasil->fetch_assoc()) {
+            $id_posisi=$baris['kategori'];
+            $nama_freelance=$baris['nama_freelance'];
+            $image1=$baris['foto_Freelance'];
+            $pesan=$baris['massage'];
+            echo"
+      <div class='bg-dark rounded-lg shadow-xl'>
+        <div class='flex justify-end'></div>
+        <div class='flex flex-col items-center pb-10 pt-10 px-4'>
+          <img class='w-48 h-48 mb-3 rounded-full shadow-lg object-cover' src='images/$image1' alt='' />
+          <div class='flex'>
+            <h5 class='mb-1 text-2xl font-medium text-white pr-3 pt-1'>$nama_freelance</h5>
+            <div class='flex justify-center items-center'>
+              <svg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-6 h-6 mr-1 text-yellow-300 fill-yellow-300'>
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
                 />
               </svg>
-              <p class="text-white font-semibold text-xl">4</p>
+              <p class='text-white font-semibold text-xl'>4</p>
             </div>
           </div>
-          <span class="text-lg text-primary">Visual Designer</span>
-          <h1 class="px-5 pt-2 text-white text-justify">
-            John Doe is a highly skilled freelance web developer with seven years of professional experience. With a deep understanding of web development principles and technologies, John has honed his expertise in creating dynamic and
-            user-friendly websites. He possesses a keen eye for design and a meticulous approach to coding, ensuring that his projects are not only visually appealing but also optimized for optimal performance. Throughout his freelance
-            career, John has successfully delivered a wide range of web development projects, collaborating with clients from diverse industries. His extensive experience allows him to excel in front-end development, crafting intuitive user
-            interfaces and immersive user experiences. John is proficient in various programming languages, including HTML, CSS, JavaScript, and frameworks like React and Angular. As a freelance web developer, John is known for his
-            professionalism, reliability, and effective communication skills. He has a proven track record of delivering projects on time and within budget, while maintaining a high level of quality. Whether it's building a responsive
-            website from scratch, optimizing existing web applications, or implementing custom features, John's dedication to excellence ensures that his clients' goals are met and exceeded. Overall, John Doe is a seasoned freelance web
-            developer who brings extensive knowledge and expertise to every project he undertakes. With his years of experience and commitment to delivering exceptional results, he is an invaluable asset for businesses seeking to enhance
-            their online presence through innovative and functional websites.
+          <span class='text-lg text-primary'>$id_posisi</span>
+          <h1 class='px-5 pt-2 text-white text-justify'>
+          $pesan
           </h1>
         </div>
       </div>
-    </div>
+    ";
+      }}
+      ?>
+      </div>
     <!-- form container end -->
 
     <!-- footer start -->

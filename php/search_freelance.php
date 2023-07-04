@@ -140,13 +140,13 @@ include 'connect.php';
         $value=$_GET['freelance'];
 
         $search = "SELECT * FROM freelance
-        JOIN posisi ON freelance.id_posisi = posisi.id_posisi
+        JOIN kategori ON freelance.id_kategori = kategori.id_kategori
         WHERE freelance.nama_freelance LIKE '%$value%'";
         $hasil = mysqli_query($conn,$search);
            if($hasil->num_rows > 0){
            while ($baris=$hasil->fetch_assoc()) {
             $id_freelance=$baris['id_freelance'];
-            $id_posisi=$baris['posisi'];
+            $id_posisi=$baris['kategori'];
             $nama_freelance=$baris['nama_freelance'];
             $status_freelance=$baris['status_freelance'];
             $image1=$baris['foto_Freelance'];

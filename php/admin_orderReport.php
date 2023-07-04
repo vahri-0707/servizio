@@ -1,3 +1,15 @@
+<?php 
+include 'connect.php';
+session_start();
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+  $loggedin= true;
+}
+else{
+  $loggedin = false;
+  $userId = 0;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,27 +60,27 @@
 
         <div class="flex flex-col justify-between flex-grow">
           <div class="py-5">
-            <a href="admin_dashboard.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_dashboard.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/dashboard.png" alt="" class="w-5 h-5 mr-5" />
               Dashboard
             </a>
 
-            <a href="admin_orderList.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_orderList.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/list.png" alt="" class="w-5 h-5 mr-5" />
               Order List
             </a>
 
-            <a href="admin_orderReport.html" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-primary bg-dark">
+            <a href="admin_orderReport.php" class="flex items-center my-1 px-3 py-3 text-white border-l-4 border-primary bg-dark">
               <img src="images/report.png" alt="" class="w-7 h-7 mr-4" />
               Order Report
             </a>
 
-            <a href="admin_manageFreelance.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_manageFreelance.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/freelance.png" alt="" class="w-5 h-5 mr-5" />
               Manage Freelance
             </a>
 
-            <a href="admin_manageProduct.html" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
+            <a href="admin_manageProduct.php" class="flex items-center my-1 px-4 py-3 text-white border-l-4 border-transparent hover:border-primary bg-darkest hover:bg-dark transition">
               <img src="images/manage.png" alt="" class="w-5 h-5 mr-5" />
               Manage Product
             </a>
@@ -118,131 +130,52 @@
             </thead>
             <tbody>
               <tr class="bg-dark border-b border-gray-600">
-                <td class="px-6 py-4 flex items-center justify-center"><img src="images/product1.jpg" alt="" class="w-36" /></td>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">2023-06-17</td>
-                <td class="px-6 py-4">
-                  <div class="flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 text-yellow-300 fill-yellow-300">
+                <?php
+                $select = "SELECT p.judul_produk, p.gambar_produk1,  AVG(l.rating_produk) AS avg_rating, ps.tanggal, ps.id_servis
+                            FROM proses ps
+                            JOIN `order` o ON ps.id_order = o.id_order
+                            JOIN laris l ON o.id_order = l.id_order
+                            JOIN produk p ON o.id_produk = p.id_produk
+                            GROUP BY ps.id_servis
+                            ORDER BY ps.id_servis DESC
+                            ";
+                  $hasil = mysqli_query($conn,$select);
+                  if($hasil->num_rows > 0){
+                  while ($baris=$hasil->fetch_assoc()) {
+                      $id_servis=$baris['id_servis'];
+                      $produk=$baris['judul_produk'];
+                      $image=$baris['gambar_produk1'];
+                      $tanggal=$baris['tanggal'];
+                      $avg_rating = $baris['avg_rating'];
+                      echo"
+                <td class='px-6 py-4 flex items-center justify-center'><img src='images/$image' alt='' class='w-36' /></td>
+                <td class='px-6 py-4'>$produk</td>
+                <td class='px-6 py-4'>$tanggal</td>
+                <td class='px-6 py-4'>
+                  <div class='flex justify-center items-center'>
+                    <svg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-6 h-6 mr-2 text-yellow-300 fill-yellow-300'>
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
                       />
                     </svg>
-                    <p class="mt-[2px]">4</p>
+                    <p class='ml-2 mt-[2px] text-white font-semibold'>" . substr($avg_rating, 0,3). "</p>
                   </div>
                 </td>
-                <td class="px-6 py-4">
+                <td class='px-6 py-4'>
                   <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
+                    type='button'
+                    class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'
                   >
-                    <img class="w-6" src="images/delete.png" alt="" />
+                    <img class='w-6' src='images/delete.png' alt='' />
                   </button>
                 </td>
+                
               </tr>
-              <tr class="bg-dark border-b border-gray-600">
-                <td class="px-6 py-4 flex items-center justify-center"><img src="images/product1.jpg" alt="" class="w-36" /></td>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">2023-06-17</td>
-                <td class="px-6 py-4">
-                  <div class="flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 text-yellow-300 fill-yellow-300">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                      />
-                    </svg>
-                    <p class="mt-[2px]">4</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/delete.png" alt="" />
-                  </button>
-                </td>
-              </tr>
-              <tr class="bg-dark border-b border-gray-600">
-                <td class="px-6 py-4 flex items-center justify-center"><img src="images/product1.jpg" alt="" class="w-36" /></td>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">2023-06-17</td>
-                <td class="px-6 py-4">
-                  <div class="flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 text-yellow-300 fill-yellow-300">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                      />
-                    </svg>
-                    <p class="mt-[2px]">4</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/delete.png" alt="" />
-                  </button>
-                </td>
-              </tr>
-              <tr class="bg-dark border-b border-gray-600">
-                <td class="px-6 py-4 flex items-center justify-center"><img src="images/product1.jpg" alt="" class="w-36" /></td>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">2023-06-17</td>
-                <td class="px-6 py-4">
-                  <div class="flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 text-yellow-300 fill-yellow-300">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                      />
-                    </svg>
-                    <p class="mt-[2px]">4</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/delete.png" alt="" />
-                  </button>
-                </td>
-              </tr>
-              <tr class="bg-dark border-b border-gray-600">
-                <td class="px-6 py-4 flex items-center justify-center"><img src="images/product1.jpg" alt="" class="w-36" /></td>
-                <td class="px-6 py-4">Web Design</td>
-                <td class="px-6 py-4">2023-06-17</td>
-                <td class="px-6 py-4">
-                  <div class="flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 text-yellow-300 fill-yellow-300">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                      />
-                    </svg>
-                    <p class="mt-[2px]">4</p>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2"
-                  >
-                    <img class="w-6" src="images/delete.png" alt="" />
-                  </button>
-                </td>
-              </tr>
-              3
+              ";
+                  }}
+                ?>
             </tbody>
           </table>
         </div>
