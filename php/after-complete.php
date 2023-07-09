@@ -310,8 +310,8 @@ else{
                       </li>
                     </ul>
 
-                    <p class="text-white font-semibold text-base">Rate for our freelance :</p>
-                    <ul class="grid w-full gap-6 md:grid-cols-5 grid-cols-3">
+                    <p class="text-white font-semibold text-base pt-6">Rate for our freelance :</p>
+                    <ul class="grid w-full gap-6 md:grid-cols-5 grid-cols-3 pt-6">
                       <li>
                         <input type="radio" id="ratefreelance1" name="ratefreelance" value="1" class="hidden peer" />
                         <label

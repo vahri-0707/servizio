@@ -297,7 +297,7 @@ else{
                 </tr>
               </thead>
               <tbody>
-    <tr class="bg-dark border-b border-gray-600">
+    
         <?php
         if ($loggedin) {
             $query = "SELECT `order`.id_order, order.status_order, produk.id_produk, produk.judul_produk, produk.gambar_produk1, produk.harga_produk, kategori.kategori, freelance.nama_freelance
@@ -319,6 +319,7 @@ else{
                     $namafreelance = $baris['nama_freelance'];
                     $status = $baris['status_order'];
                     echo "
+                    <tr class='bg-dark border-b border-gray-600'>
                     <th scope='row' class='px-6 py-4 font-medium text-white whitespace-nowrap flex justify-center'><img class='w-36' src='images/$image' alt='' /></th>
                     <td class='px-6 py-4'>$produk</td>
                     <td class='px-6 py-4'>$kategori</td>

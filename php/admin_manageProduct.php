@@ -1,5 +1,12 @@
 <?php
 include 'connect.php';
+// session_start();
+
+// if (!isset($_SESSION['loggedin'])) {
+//   // redirect ke halaman login
+//   header("Location: login.php");
+//   exit;
+// }
 ?>
 
 <!DOCTYPE html>
@@ -12,8 +19,10 @@ include 'connect.php';
     <link rel="stylesheet" href="../dist/output.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    
   </head>
   <body class="bg-darkest font-poppins">
     <div class="min-h-screen bg-darkest font-poppins">
@@ -134,7 +143,7 @@ include 'connect.php';
                       </div>
                       <!-- Modal body -->
                       <div class="p-6 space-y-6">
-                        <form action="produk.php" method="POST" enctype="multipart/form-data">
+                      <form id="productForm" action="produk.php" method="POST" enctype="multipart/form-data" onsubmit="showConfirmation()">
                           <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                               <label for="product_title" class="block mb-2 text-sm font-medium text-white">Product Title</label>
@@ -152,7 +161,7 @@ include 'connect.php';
                               <select id="availability" name="status" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
                                 <option selected>Choose an availability</option>
                                 <option value="available">Available</option>
-                                <option value="nonavail">Unavailable</option>
+                                <option value="unavailable">Unavailable</option>
                               </select>
                             </div>
                             <div>
@@ -196,23 +205,6 @@ include 'connect.php';
                             </select>
                             </div>
                             <div>
-                              <label for="freelance" class="block mb-2 text-sm font-medium text-white">Freelance</label>
-                              <select id="freelance" name="freelance" class="bg-dark border border-gray-400 text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Doe" required>
-                                <option selected>Choose a freelancer</option>
-                                <?php
-                                $select = "SELECT freelance.nama_freelance FROM freelance ";
-                                $hasil = mysqli_query($conn,$select);
-                                while($baris=mysqli_fetch_assoc($hasil)) {
-                                  $posisi = $baris['kategori'];
-                                  $id_posisi=$baris['id_kategori'];
-                                  $nama_freelance=$baris['nama_freelance'];
-                                  echo"
-                                <option value='$id_posisi'>$nama_freelance</option>
-                                ";}
-                                ?>
-                              </select>
-                            </div>
-                            <div>
                               <label for="product_price" class="block mb-2 text-sm font-medium text-white">Product Price</label>
                               <input
                                 type="text"
@@ -234,7 +226,7 @@ include 'connect.php';
                                 required
                               />
                             </div>
-                          </div>
+                          
                           <div class="mb-6">
                             <label for="product_desc" class="block mb-2 text-sm font-medium text-white">Product Description</label>
                             <input
@@ -245,6 +237,7 @@ include 'connect.php';
                               placeholder="Insert product description"
                               required
                             />
+                          </div>
                           </div>
                           <div class="mb-6">
                             <label for="message" class="block mb-2 text-sm font-medium text-white">Product Detail</label>
@@ -276,24 +269,27 @@ include 'connect.php';
                           </div>
                       </div>
                       <!-- Modal footer -->
+
                       <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-400 rounded-b">
-                        <button
-                          data-modal-hide="addproduct"
+                      <button
                           type="submit"
                           name="insert_produk"
                           class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 font-medium rounded-lg text-sm px-12 py-2.5 text-center"
                         >
                           Save Changes
-                        </button>
+                    </button>
                       </div>
-                      </form>
+                    </form>
                     </div>
                   </div>
                 </div>
+                <!-- Search engine -->
+                <form action="search-produk.php" method="GET">
                 <div class="w-96 h-12 mt-3 xl:max-w-xl lg:max-w-lg lg:flex hidden">
-                  <input type="text" class="text-white bg-dark w-full border border-r-0 border-primary px-3 rounded-l-md focus:ring-primary focus:border-primary" placeholder="Search products" />
+                  <input type="text" name="produk" class="text-white bg-dark w-full border border-r-0 border-primary px-3 rounded-l-md focus:ring-primary focus:border-primary" placeholder="Search products" />
                   <button
                     type="submit"
+                    name="cari"
                     class="flex items-center bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-5 font-medium text-base rounded-r-md transition"
                   >
                     Search
@@ -332,7 +328,7 @@ include 'connect.php';
                 <td class='px-6 py-4'>Rp. " . number_format($price, 0) . "</td>
                 <td class='px-6 py-4'>$status</td>
                 <td class='px-6 py-4'>
-                  <a href= 'admin_edit_produk.php?id=$id_produk'>
+                  <a href= 'edit_product.php?id=$id_produk'>
                   <button
                     type='button'
                     name='edit_produk'
@@ -340,17 +336,35 @@ include 'connect.php';
                   >
                     <img class='w-6' src='images/edit.png' alt='' />
                   </button>
-                  <a href= 'admin_delete_product.php?id_produk=$id_produk'>
-                  <button
-                    type='button'
-                    class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'
-                  >
-                    <img class='w-6' src='images/delete.png' alt='' />
-                  </button>
                   </a>
+                  <button type='button' class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2' onclick='confirmDelete($id_produk)'>
+                  <img class='w-6' src='images/delete.png' alt='' />
+              </button>
+              
                 </td>
               </tr>
               ";
+              echo "
+              <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              <script>
+                function confirmDelete(id_produk) {
+                  Swal.fire({
+                    title: 'Konfirmasi Hapus Data!',
+                    text: 'Apakah Anda yakin ingin menghapus data ini?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      // Redirect to admin_delete_product.php with the product ID
+                      window.location.href = 'admin_delete_product.php?id_produk=' + id_produk;
+                    }
+                  });
+                }
+              </script>
+";
      }}
      ?>
             </tbody>
@@ -359,7 +373,7 @@ include 'connect.php';
       </div>
       <!-- content end -->
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script>
       document.getElementById('dropdown').addEventListener('click', function () {
         document.getElementById('dropdown_content').classList.toggle('hidden');
@@ -373,7 +387,5 @@ include 'connect.php';
         document.getElementById('sidebar').classList.remove('active');
       });
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-  </body>
+    </body>
 </html>

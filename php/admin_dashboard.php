@@ -6,6 +6,12 @@ $dataPendapatanBulanan = getPendapatanBulanan($conn);
 $jsonDataPendapatanBulanan = json_encode($dataPendapatanBulanan);
 
 session_start();
+
+// if (!isset($_SESSION['loggedin'])) {
+//   // redirect ke halaman login
+//   header("Location: login.php");
+//   exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +37,7 @@ session_start();
   </head>
   <body class="bg-darkest font-poppins">
     <div class="min-h-screen bg-darkest font-poppins">
+      <div class="relative z-10">
       <div class="h-16 bg-primary px-8 shadow-sm pl-8 lg:pl-80 pr-8 fixed w-full top-0 left-0 flex items-center">
         <!-- side rwd start -->
         <div class="w-6 cursor-pointer lg:hidden" id="ham">
@@ -55,6 +62,7 @@ session_start();
           </div>
         </div>
       </div>
+</div>
 
       <div class="fixed left-0 top-0 w-72 h-full bg-darkest shadow-2xl z-10 flex flex-col transition-all" id="sidebar">
         <div class="py-5 bg-primary flex justify-center relative">
@@ -187,16 +195,16 @@ session_start();
         </div>
     </div>
     <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
-        <div class="text-lg text-white font-medium mb-1">Pendapatan hari ini</div>
-        <div class="text-2xl text-primary font-bold">Rp. <?php echo number_format($totalPendapatanHarian, 0); ?></div>
+        <div class="text-lg text-white font-medium mb-1 px-4 pt-4 ">Pendapatan hari ini</div>
+        <div class="text-2xl text-primary font-bold px-4">Rp. <?php echo number_format($totalPendapatanHarian, 0); ?></div>
     </div>
     <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
-        <div class="text-lg text-white font-medium mb-1">Pendapatan Minggu Ini</div>
-        <div class="text-2xl text-primary font-bold">Rp. <?php echo number_format($totalPendapatanBulanan, 0); ?></div>
+        <div class="text-lg text-white font-medium mb-1 px-4 pt-4">Pendapatan Bulan Ini</div>
+        <div class="text-2xl text-primary font-bold px-4">Rp. <?php echo number_format($totalPendapatanBulanan, 0); ?></div>
     </div>
     <div class="md:block items-center rounded-lg bg-dark h-full md:col-span-1 col-span-3">
-        <div class="text-lg text-white font-medium mb-1">Pendapatan Tahun ini</div>
-        <div class="text-2xl text-primary font-bold">Rp. <?php echo number_format($totalPendapatanTahunan, 0); ?></div>
+        <div class="text-lg text-white font-medium mb-1 px-4 pt-4">Pendapatan Tahun ini</div>
+        <div class="text-2xl text-primary font-bold px-4">Rp. <?php echo number_format($totalPendapatanTahunan, 0); ?></div>
     </div>
 </div>
 
@@ -251,9 +259,9 @@ session_start();
                             echo"
                       <tr class='bg-dark border-b'>
                         <td class='px-6 py-4'>$rangking</td>
-                        <td class='flex items-center justify-center py-4 text-white'>
+                        <td class='flex items-center justify-start py-4 text-white'>
                           <img class='w-7 h-7 object-cover rounded-full' src='images/$gambar1' alt='Jese image' />
-                          <div class='pl-3'>
+                          <div class='text-left pl-3'>
                             <div class='text-sm font-semibold'>$nama_freelance</div>
                             <div class='font-normal text-gray-400'>$email</div>
                           </div>
@@ -316,9 +324,9 @@ session_start();
                       echo"
                       <tr class='bg-dark border-b'>
                         <td class='px-6 py-4'>$rangking</td>
-                        <td class='flex items-center justify-center py-4 text-white'>
+                        <td class='flex items-center justify-start py-4 text-white'>
                           <img class='w-7 h-7 object-cover' src='images/$gambar1' alt='Jese image' />
-                          <div class='pl-4'>
+                          <div class='text-left pl-4'>
                             <div class='text-sm font-semibold'>$nama_produk</div>
                           </div>
                         </td>

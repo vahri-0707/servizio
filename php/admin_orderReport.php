@@ -1,13 +1,12 @@
 <?php 
 include 'connect.php';
 session_start();
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
-  $loggedin= true;
-}
-else{
-  $loggedin = false;
-  $userId = 0;
-}
+
+// if (!isset($_SESSION['loggedin'])) {
+//   // redirect ke halaman login
+//   header("Location: login.php");
+//   exit;
+// }
 ?>
 
 <!DOCTYPE html>
@@ -129,7 +128,7 @@ else{
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-dark border-b border-gray-600">
+              
                 <?php
                 $select = "SELECT p.judul_produk, p.gambar_produk1,  AVG(l.rating_produk) AS avg_rating, ps.tanggal, ps.id_servis
                             FROM proses ps
@@ -148,6 +147,7 @@ else{
                       $tanggal=$baris['tanggal'];
                       $avg_rating = $baris['avg_rating'];
                       echo"
+                      <tr class='bg-dark border-b border-gray-600'>
                 <td class='px-6 py-4 flex items-center justify-center'><img src='images/$image' alt='' class='w-36' /></td>
                 <td class='px-6 py-4'>$produk</td>
                 <td class='px-6 py-4'>$tanggal</td>

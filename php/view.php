@@ -45,6 +45,7 @@ if (isset($_POST['bayar'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+   
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="../dist/output.css" />
@@ -230,7 +231,7 @@ if (isset($_POST['bayar'])) {
     <!-- mobile sidebar menu end -->
 
     <!-- product view -->
-    <div class='container pt-48 pb-6 grid lg:grid-cols-2 gap-6'>
+    
     <?php
      $id_produk=$_GET['id'];
      $select = "SELECT kategori.kategori, kategori.id_kategori, produk.id_produk, produk.judul_produk, produk.tersedia, produk.revisi, produk.waktu_pengiriman, produk.harga_produk, produk.deskripsi_produk, produk.gambar_produk1, produk.gambar_produk2, produk.gambar_produk3, produk.detail_produk, produk.format_produk, freelance.id_freelance, freelance.nama_freelance, freelance.foto_Freelance
@@ -259,6 +260,7 @@ if (isset($_POST['bayar'])) {
          echo"
       <!-- product image -->
       <form action='' method='POST'>
+      <div class='container pt-48 pb-6 grid lg:grid-cols-2 gap-6'>
       <div>
         <div>
           <div id='default-carousel' class='relative w-full' data-carousel='slide'>
@@ -266,15 +268,15 @@ if (isset($_POST['bayar'])) {
             <div class='relative w-full overflow-hidden rounded-lg md:h-96'>
               <!-- Item 1 -->
               <div class='hidden duration-700 ease-in-out' data-carousel-item>
-                <img id='main-img' src='images/$image' class='absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
+                <img id='main-img' src='images/$image' class='absolute block w-full h-96 object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
               </div>
               <!-- Item 2 -->
               <div class='hidden duration-700 ease-in-out' data-carousel-item>
-                <img id='main-img' src='images/$image1' class='absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
+                <img id='main-img' src='images/$image1' class='absolute block w-full h-96 object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
               </div>
               <!-- Item 3 -->
               <div class='hidden duration-700 ease-in-out' data-carousel-item>
-                <img id='main-img' src='images/$image2' class='absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
+                <img id='main-img' src='images/$image2' class='absolute block w-full h-96 object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2' alt='...' />
               </div>
             </div>
             <!-- Slider indicators -->
@@ -308,6 +310,7 @@ if (isset($_POST['bayar'])) {
         </div>
       </div>
       <!-- product image end -->
+      
       <!-- product content -->
       <div>
         <h2 class='md:text-3xl text-2xl font-medium uppercase mb-4 text-white'>$produk</h2>
@@ -335,34 +338,33 @@ if (isset($_POST['bayar'])) {
         ";
     $hasil = mysqli_query($conn, $select);
     if ($hasil->num_rows > 0) {
-  echo "
-    <p class='mt-4 mb-4 text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim exercitationem quaerat excepturi labore blanditiis</p>
-    <h3 class='mb-5 text-lg font-medium text-white'>Choose Freelancer:</h3>
-    <ul class='grid w-full gap-6 md:grid-cols-3'>
-  ";
-  while ($baris = $hasil->fetch_assoc()) {
-    $freelance=$baris['nama_freelance'];
-    $fotofreelance=$baris['foto_Freelance'];
-    $id_freelance = $baris['id_freelance'];
-    echo "
-      <li>
-        <input type='radio' id='$id_freelance'   name='freelance' value=$id_freelance class='hidden peer' />
-        <label for='$id_freelance' class='inline-flex items-center justify-between w-full h-24 p-5 text-white bg-dark border border-gray-400 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800'>
-          <div class='block'>
-            <div class='w-full text-base font-semibold'>$freelance</div>
-            <a href='choose-freelance.php?id=$id_freelance' class='w-full text-sm hover:underline hover:text-primary'>View Detail</a>
-          </div>
-          <img src='images/$fotofreelance' alt='' class='w-10 h-10 object-cover rounded-full ml-3' />
-        </label>
-      </li>
-    ";
-  }
+      echo "
+        <p class='mt-4 mb-4 text-white'>$deskripsi</p>
+        <h3 class='mb-5 text-lg font-medium text-white'>Choose Freelancer:</h3>
+        <ul class='grid w-full gap-6 md:grid-cols-3'>
+      ";
+      while ($baris = $hasil->fetch_assoc()) {
+        $freelance=$baris['nama_freelance'];
+        $fotofreelance=$baris['foto_Freelance'];
+        $id_freelance = $baris['id_freelance'];
+        echo "
+          <li>
+            <input type='radio' id='$id_freelance'   name='freelance' value=$id_freelance class='hidden peer' />
+            <label for='$id_freelance' class='inline-flex items-center justify-between w-full h-24 p-5 text-white bg-dark border border-gray-400 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-200 hover:bg-gray-800'>
+              <div class='block'>
+                <div class='w-full text-base font-semibold'>$freelance</div>
+                <a href='choose-freelance.php?id=$id_freelance' class='w-full text-sm hover:underline hover:text-primary'>View Detail</a>
+              </div>
+              <img src='images/$fotofreelance' alt='' class='w-10 h-10 object-cover rounded-full ml-3' />
+            </label>
+          </li>
+        ";
+      }
+      echo "
+        </ul>
+      ";
 
-  echo "
-    </ul>
-  ";
-    echo"
-        
+        echo"
         <!-- add to cart button -->
         <div class='flex mt-6'>
         <button
@@ -371,12 +373,12 @@ if (isset($_POST['bayar'])) {
         data-modal-toggle='checkout'
         class='bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-8 py-4 font-medium rounded uppercase hover:bg-transparent transition text-sm flex items-center'
         " . (!$loggedin ?"disabled onclick=\"alert('Silahkan login terlebih dahulu'); window.location.href = 'login.php';\"" : "") . "
->
+        >
         checkout
       </button>
-  ";
+      ";
         }
-    echo"
+      echo"
           <!-- Main modal -->
           <div id='checkout' tabindex='-1' aria-hidden='true' class='fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full'>
             <div class='relative w-full max-w-md max-h-full'>
@@ -530,9 +532,9 @@ if (isset($_POST['bayar'])) {
         <!-- add to cart button end -->
       </div>
       <!-- product content end -->
-      
     </div>
     <!-- product view end -->
+
     <!-- product details and review -->
     <div class='container pb-16'>
       <!-- detail buttons -->
@@ -544,14 +546,6 @@ if (isset($_POST['bayar'])) {
         <div class='space-y-3 text-gray-200'>
           <p>
             $detail
-          </p>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti, nihil dolor unde laboriosam quasi ut provident accusantium et at? Alias consequuntur possimus cum necessitatibus ex cumque reiciendis doloribus, maxime
-            architecto.
-          </p>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas, dolorum nisi repudiandae corporis odit ipsam molestias fugiat, incidunt saepe ex corrupti quasi perspiciatis! Commodi rerum, labore a laborum alias sint maiores
-            aut id quasi odio perspiciatis. Laudantium, quo fugiat.
           </p>
         </div>
         <!-- details table -->
@@ -566,7 +560,7 @@ if (isset($_POST['bayar'])) {
           </tr>
           <tr>
             <th class='py-2 px-4 border border-gray-300 w-40 font-medium'>File Format</th>
-            <td class='py-2 px-4 border border-gray-300'>AI, JPG, PDF, PNG, PSD</td>
+            <td class='py-2 px-4 border border-gray-300'>$format</td>
           </tr>
         </table>
         <!-- details table -->
@@ -588,8 +582,14 @@ if (isset($_POST['bayar'])) {
           <!-- product image start -->
           <?php
            $id_kategori=$_GET['id'];
-           $select = "SELECT kategori.id_kategori, kategori.kategori,produk.id_produk,produk.judul_produk,produk.gambar_produk1,produk.harga_produk,produk.tersedia 
-           FROM kategori JOIN produk ON(kategori.id_kategori=produk.id_kategori)  WHERE kategori.id_kategori='$id_kategori'; ";
+           $select = "SELECT DISTINCT kategori.id_kategori, kategori.kategori, produk.id_produk, produk.judul_produk, produk.gambar_produk1, produk.harga_produk, produk.tersedia, AVG(rating_produk) AS avg_rating
+           FROM kategori 
+           JOIN produk ON kategori.id_kategori = produk.id_kategori
+           LEFT JOIN `order` ON produk.id_produk = `order`.id_produk
+           LEFT JOIN laris ON `order`.id_order = laris.id_order
+           WHERE kategori.id_kategori='$id_kategori'
+           GROUP BY produk.id_produk
+           ";
            $hasil = mysqli_query($conn,$select);
            if($hasil->num_rows > 0){
            while ($baris=$hasil->fetch_assoc()) {
@@ -598,10 +598,11 @@ if (isset($_POST['bayar'])) {
                $image=$baris['gambar_produk1'];
                $price=$baris['harga_produk'];
                $status=$baris['tersedia'];
+               $avg_rating = $baris['avg_rating'];
                echo"
                <div class='group rounded bg-dark shadow overflow-hidden' data-aos='fade-left' data-aos-duration='1000'>
           <div class='relative'>
-            <img src='/servizio/dist/images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
             </div>
           </div>
@@ -619,18 +620,20 @@ if (isset($_POST['bayar'])) {
             </div>
             <div class='flex items-center'>
               <div class='flex gap-1 text-sm text-yellow-400'>
-                <span><i class='fas fa-star'></i></span>
-                <span><i class='fas fa-star'></i></span>
-                <span><i class='fas fa-star'></i></span>
-                <span><i class='fas fa-star'></i></span>
-                <span><i class='fas fa-star'></i></span>
+              <svg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-6 h-6 mr-2 text-yellow-300 fill-yellow-300'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
+              />
+            </svg>
               </div>
-              <p class='ml-2 mt-[2px] text-white font-semibold'>4</p>
+              <p class='ml-2 mt-[2px] text-white font-semibold'>" . substr($avg_rating, 0,3). "</p>
             </div>
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->

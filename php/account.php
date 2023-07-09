@@ -22,7 +22,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/servizio-1/dist/output.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -51,7 +51,7 @@ else{
             <i class="fas fa-search"></i>
           </span>
           <input type="text" name="produk" class="text-white bg-dark pl-12 w-full border border-r-0 border-primary py-3 px-3 rounded-l-md focus:ring-primary focus:border-primary focus:bg-darkest" placeholder="What services are you looking for today?" />
-          <button type="submit" name="cari" class="bg-primary border border-primary text-white px-8 font-medium rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+          <button type="submit" name="cari" class="bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-8 font-medium rounded-r-md hover:bg-transparent transition">Search</button>
         </form>
         <!-- search engine end -->
 
@@ -77,7 +77,7 @@ else{
       <div class="container">
         <div class="flex">
           <!-- all category start -->
-          <div class="px-8 py-4 bg-primary flex items-center cursor-pointer group relative">
+          <div class="py-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-8 font-medium  hover:bg-transparent transition flex items-center cursor-pointer group relative">
             <span class="text-textcolor">
               <i class="fas fa-bars"></i>
             </span>
@@ -198,7 +198,9 @@ else{
           <div>
            <!-- <p class="text-gray-200">Hello,</p>
             <h4 class="text-white capitalize font-medium">Vahri</h4>-->
-            <?php echo "Hello, <b>" . $_SESSION['first_name'] . "</b>"; ?>
+            <?php echo "
+            <p class='text-white'>Haloo, </p>
+            <b class='text-white'>" . $_SESSION['first_name'] . "</b>"; ?>
           </div>
 
         </div>
@@ -228,16 +230,35 @@ else{
           <!-- single link end -->
           <!-- single link --> 
           <?php
-          echo"
-          <div class='pl-8 pt-4'> 
-          <a href='delete_account.php?id=$_SESSION[first_name]' class='relative medium capitalize text-white font-medium hover:text-primary transition block'>
-                Delete account
-                  <span class='absolute -left-8 top-1 text-base text-white'>
-                    <i class='fas fa-trash'></i>
-                  </span>
-          </a>
-          </div>"; 
-          ?>
+echo "
+<div class='pl-8 pt-4'>
+  <a href='delete_account.php?id=$_SESSION[first_name]' class='relative medium capitalize text-white font-medium hover:text-primary transition block' onclick='confirmDelete(event)'>
+    Delete account
+    <span class='absolute -left-8 top-1 text-base text-white'>
+      <i class='fas fa-trash'></i>
+    </span>
+  </a>
+</div>";
+?>
+
+<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+<script>
+function confirmDelete(event) {
+    event.preventDefault(); // Menghentikan pengiriman tautan secara langsung
+
+    swal({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda yakin ingin menghapus akun?',
+        icon: 'warning',
+        buttons: ['Batal', 'Hapus'],
+        dangerMode: true,
+    }).then(function (confirm) {
+        if (confirm) {
+            window.location.href = event.target.href; // Melanjutkan pengiriman tautan jika dikonfirmasi
+        }
+    });
+}
+</script>
           <!-- single link end -->
           <!-- single link -->
           <div class="pl-8 pt-4">
@@ -255,69 +276,91 @@ else{
       <!-- sidebar end -->
 
       <!-- account content -->
-      <?php
-       $select = "SELECT * FROM user WHERE first_name = '$_SESSION[first_name]'";
-       $hasil = mysqli_query($conn,$select);
-       if($hasil->num_rows > 0){
-       while ($baris=$hasil->fetch_assoc()) {
-           $firstname=$baris['first_name'];
-           $lastname=$baris['last_name'];
-           $tanggal=$baris['tanggal_lahir'];
-           $gender=$baris['kelamin'];
-           $email=$baris['email'];
-           $nomor=$baris['nomor_telepon'];
-      echo"
-      <div class='col-span-9 shadow rounded px-6 pt-5 pb-7 mt-6 lg:mt-0 bg-dark'>
-        <form action='update_account.php?id=$_SESSION[first_name]' method='POST'>
-          <h3 class='font-medium capitalize mb-4 text-white text-center text-2xl'>Profile Information</h3>
-          <div class='space-y-4'>
-            <div class='grid sm:grid-cols-2 gap-4'>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>First Name</label>
-                <input type='text' name='firstname' placeholder='$firstname' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+<?php
+$select = "SELECT * FROM user WHERE first_name = '$_SESSION[first_name]'";
+$hasil = mysqli_query($conn, $select);
+if ($hasil->num_rows > 0) {
+    while ($baris = $hasil->fetch_assoc()) {
+        $firstname = $baris['first_name'];
+        $lastname = $baris['last_name'];
+        $tanggal = $baris['tanggal_lahir'];
+        $gender = $baris['kelamin'];
+        $email = $baris['email'];
+        $nomor = $baris['nomor_telepon'];
+        echo "
+        <div class='col-span-9 shadow rounded px-6 pt-5 pb-7 mb-96 mt-6 lg:mt-0 bg-dark'>
+          <form action='update_account.php?id=$_SESSION[first_name]' method='POST' id='updateForm'>
+            <h3 class='font-medium capitalize mb-4 text-white text-center text-2xl'>Profile Information</h3>
+            <div class='space-y-4'>
+              <div class='grid sm:grid-cols-2 gap-4'>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>First Name</label>
+                  <input type='text' name='firstname' placeholder='$firstname' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+                </div>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>Last Name</label>
+                  <input type='text' name='lastname' placeholder='$lastname' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+                </div>
               </div>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>Last Name</label>
-                <input type='text' name='lastname' placeholder='$lastname' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+              <div class='grid sm:grid-cols-2 gap-4'>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>Birthday</label>
+                  <input type='text' name='tanggal' placeholder='$tanggal' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' disabled/>
+                </div>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>$gender</label>
+                  <select name='gender' id='gdr' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' disabled>
+                    <option value='Male'>Male</option>
+                    <option value='Female'>Female</option>
+                  </select>
+                </div>
+              </div>
+              <div class='grid sm:grid-cols-2 gap-4'>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>Email</label>
+                  <input type='email' name='email' placeholder='$email' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+                </div>
+                <div class='mt-6'>
+                  <label class='block text-white' for=''>Phone Number</label>
+                  <input type='text'  name='nomor' placeholder='$nomor' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
+                </div>
               </div>
             </div>
-            <div class='grid sm:grid-cols-2 gap-4'>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>Birthday</label>
-                <input type='text' name='tanggal' placeholder='$tanggal' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
-              </div>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>$gender</label>
-                <select name='gender' id='gdr' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg'>
-                  <option value='Male'>Male</option>
-                  <option value='Female'>Female</option>
-                </select>
-              </div>
+            <div class='mt-6'>
+              <button type='submit' name='update' class='py-2 text-center bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-8 font-medium rounded-lg hover:bg-transparent transition uppercase font-roboto' onclick='confirmUpdate(event)'>Save change</button>
             </div>
-            <div class='grid sm:grid-cols-2 gap-4'>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>Email</label>
-                <input type='email' name='email' placeholder='$email' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
-              </div>
-              <div class='mt-6'>
-                <label class='block text-white' for=''>Phone Number</label>
-                <input type='text'  name='nomor' placeholder='$nomor' class='text-white bg-dark w-full mt-2 px-4 py-3 border border-gray-200 focus:border-[#00ADB5] focus:bg-darkest focus:outline-none rounded-lg' />
-              </div>
-            </div>
-          </div>
-          <div class='mt-6'>
-            <button type='submit' name='update' class='px-6 py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium'>Save change</button>
-          </div>
-        </form>
-      </div>";
-       }}
-      ?>
+          </form>
+        </div>";
+    }
+}
+?>
+
+<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+<script>
+function confirmUpdate(event) {
+    event.preventDefault(); // Menghentikan pengiriman form secara langsung
+
+    swal({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda yakin ingin mengupdate akun?',
+        icon: 'warning',
+        buttons: ['Batal', 'Update'],
+        dangerMode: true,
+    }).then(function (confirm) {
+        if (confirm) {
+            document.getElementById('updateForm').submit(); // Melanjutkan pengiriman form jika dikonfirmasi
+        }
+    });
+}
+</script>
+
     
       <!-- account content end -->
     </div>
     <!-- account wrapper end -->
 
     <!-- footer start -->
+    <div class="pt-48">
     <footer class="bg-darkest pt-16 pb-12 mt-44 border-t border-gray-500">
       <div class="container">
         <div class="xl:grid xl:grid-cols-3 xl:gap-8">
@@ -396,6 +439,7 @@ else{
         <p class="text-textcolor">© Servizio - All Rights Reserved</p>
       </div>
     </div>
+</div>
     <!-- copyright end -->
 
     <script>

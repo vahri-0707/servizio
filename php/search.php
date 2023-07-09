@@ -206,13 +206,20 @@ else{
     <!-- mobile sidebar menu end -->
 
     <!-- account wrapper -->
-    <div class="container lg:grid grid-cols-12 items-start gap-6 pt-48">
+    <div class="container lg:grid grid-cols-4 items-start gap-6 pt-48">
       <!-- products -->
       <!-- second product end -->
           <?php
              if(isset($_GET['cari'])){
               $value=$_GET['produk'];
-              $search = "SELECT * FROM produk WHERE judul_produk LIKE '%$value%'";
+              $search = "SELECT DISTINCT p.judul_produk, p.gambar_produk1, p.tersedia, p.id_produk, p.harga_produk, AVG(l.rating_produk) AS avg_rating, kategori.id_kategori
+              FROM produk p
+              LEFT JOIN kategori ON (p.id_produk = kategori.id_kategori)
+              LEFT JOIN `order` o ON p.id_produk = o.id_produk
+              LEFT JOIN laris l ON o.id_order = l.id_order
+              WHERE judul_produk LIKE '%$value%'
+              
+              ";
               $hasil = mysqli_query($conn,$search);
                  if($hasil->num_rows > 0){
                  while ($baris=$hasil->fetch_assoc()) {
@@ -221,45 +228,40 @@ else{
                      $image=$baris['gambar_produk1'];
                      $price=$baris['harga_produk'];
                      $status=$baris['tersedia'];
+                     $avg_rating = $baris['avg_rating'];
                      echo"
-                     <div class='container pt-16'>
-                     <div class='grid lg:grid-cols-4 sm:grid-cols-2 gap-6'>
-                     <div class='group rounded bg-dark shadow overflow-hidden'>
-                <div class='relative'>
-                  <img src='images/$image' class='w-full' />
-                  <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
-                    <a href='view.php?id=$id_produk' class='text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center'>
-                      <i class='fas fa-search'></i>
-                    </a>
-                    <a href='#' class='text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center'>
-                      <i class='far fa-heart'></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- product image end -->
-                <!-- product content start -->
-                <div class='pt-4 pb-3 px-4'>";
+               <div class='group rounded bg-dark shadow overflow-hidden' data-aos='fade-left' data-aos-duration='1000'>
+          <div class='relative'>
+            <img src='images/$image' class='w-full h-60 object-cover' />
+            <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
+            </div>
+          </div>
+          <!-- product image end -->
+          <!-- product content start -->
+          <div class='pt-4 pb-3 px-4'>";
             if ($status == 'available') {
               echo "<a href='view.php?id=$id_produk'>
               ";
             }echo "
               <h4 class='font-medium text-xl mb-2 text-white hover:text-primary transition'>$produk</h4>
             </a>
-                  <div class='flex items-baseline mb-1'>
-                    <p class='text-xl text-primary font-roboto font-semibold'>$price</p>
-                  </div>
-                  <div class='flex items-center'>
-                    <div class='flex gap-1 text-sm text-yellow-400'>
-                      <span><i class='fas fa-star'></i></span>
-                      <span><i class='fas fa-star'></i></span>
-                      <span><i class='fas fa-star'></i></span>
-                      <span><i class='fas fa-star'></i></span>
-                      <span><i class='fas fa-star'></i></span>
-                    </div>
-                    <p class='ml-2 mt-[2px] text-white font-semibold'>rating</p>
-                  </div>
-                </div>
-                ";
+            <div class='flex items-baseline mb-1'>
+              <p class='text-xl text-primary font-roboto font-semibold'>Rp. " . number_format($price, 0) . "</p>
+            </div>
+            <div class='flex items-center'>
+              <div class='flex gap-1 text-sm text-yellow-400'>
+              <svg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-6 h-6 mr-2 text-yellow-300 fill-yellow-300'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
+              />
+            </svg>
+              </div>
+              <p class='ml-2 mt-[2px] text-white font-semibold'>" . substr($avg_rating, 0,3). "</p>
+            </div>
+          </div>
+          ";
                     if ($status == 'unavailable') {
                         echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
                     }
@@ -271,10 +273,8 @@ else{
           echo "<a href='view.php?id=$id_produk' class='block w-full py-1 text-center text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50  transition'> CHECKOUT </a>";
        }
       //  product button end
-      echo"                </div>
-                </div>
-                </div>
-                </div>";
+        echo"
+          </div>";
               }
               
       }else {

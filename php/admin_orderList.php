@@ -1,15 +1,12 @@
 <?php 
 include 'connect.php';
 session_start();
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
-  $loggedin= true;
-}
-else{
-  $loggedin = false;
-  $userId = 0;
-}
 
-  
+// if (!isset($_SESSION['loggedin'])) {
+//   // redirect ke halaman login
+//   header("Location: login.php");
+//   exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,12 +148,14 @@ else{
       <caption class="p-5 text-3xl font-semibold text-left text-white bg-dark">
         Order list
         <p class="mt-3 mb-2 text-sm font-normal text-white">Embrace Your Creative Freedom and Elevate Your Business with our Seamless Freelance Services, Unlocking Your Full Potential and Enabling Success.</p>
+        <form action="search-orderlist.php" method="GET">
         <div class="w-full h-12 mt-3 xl:max-w-full lg:max-w-full lg:flex hidden">
-          <input type="text" class="text-white bg-dark w-full border border-r-0 border-primary px-3 rounded-l-md focus:ring-primary focus:border-primary" placeholder="Search orders" />
-          <button type="submit" class="flex items-center bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-9 font-medium text-base rounded-r-md transition">
+          <input type="text" name="order" class="text-white bg-dark w-full border border-r-0 border-primary px-3 rounded-l-md focus:ring-primary focus:border-primary" placeholder="Search orders" />
+          <button type="submit" name="cari" class="flex items-center bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50 text-white px-9 font-medium text-base rounded-r-md transition">
             Search
           </button>
         </div>
+        </form>
       </caption>
       <thead class="text-xs text-white uppercase bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 shadow-lg shadow-teal-500/50">
         <tr>
@@ -168,7 +167,7 @@ else{
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-dark border-b border-gray-600">
+        
           <?php
           $query = "SELECT `order`.id_order, `order`.status_order, produk.id_produk, produk.judul_produk, produk.gambar_produk1, produk.revisi, kategori.kategori, freelance.nama_freelance, user.id_user, user.first_name, user.last_name
                     FROM `order`
@@ -188,7 +187,9 @@ else{
               $namafreelance = $baris['nama_freelance'];
               $revisi = $baris['revisi'];
 
-              echo "<td class='px-6 py-4'>" . $fnamauser . " " . $lnamauser . "</td>
+              echo"
+              <tr class='bg-dark border-b border-gray-600'> 
+              <td class='px-6 py-4'>" . $fnamauser . " " . $lnamauser . "</td>
                         <td class='px-6 py-4'>$produk</td>
                         <td class='px-6 py-4'>$namafreelance</td>
                         <td class='px-6 py-4'>$revisi</td>

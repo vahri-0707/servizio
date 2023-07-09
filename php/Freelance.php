@@ -44,50 +44,35 @@ if(isset($_POST['submit'])){
     }
 }
 
-if(isset($_POST['edit_freelance'])){
-  
-    $edit= "SELECT * FROM freelance " ;
-    $hasil_edit=mysqli_query($conn,$edit);
-    while ($baris=mysqli_fetch_array($hasil_edit)) {
-        $id_freelance=$baris['id_freelance'];
-        $id_posisi=$baris['freelance_name'];
-        $nama_freelance=$baris['nama_freelance'];
-        $status_freelance=$baris['status_freelance'];
-        $No_HP=$baris['No_HP'];
-        $freelance_email=$baris['freelance_email'];
-        $message=$baris['massage'];
-  
-    //images
-    $image1=$_FILES['image1']['name']; 
-  //tmp images 
-    $temp_image1=$_FILES['image1']['tmp_name'];  
-      
-      // Direktori tujuan untuk menyimpan gambar
-    $target_dir = 'C:/xampp/htdocs/servizio-1/php/images/';
-  
-    // Path lengkap ke file tujuan
-    $target_path1 = $target_dir . $image1;
-      
-    move_uploaded_file($temp_image1, $target_path1); 
-  
-      $edit_freelance = "UPDATE freelance SET id_freelance='$id_freelance', id_kategori='$id_posisi', nama_freelance= '$nama_freelance', status_freelance='$status_freelance', No_HP='$No_HP', foto_Freelance='$image1', freelance_email='$freelance_email', massage='$message'
-      WHERE id_freelance='$id_freelance'";
-    $result = mysqli_query($conn,$edit_freelance);
-    if($result){
-      echo "<script>alert('success')</script>";
+if (isset($_POST['edit_produk'])) {
+  $id_freelance = $_POST['id_freelance'];
+  $id_kategori = $_POST['id_kategori'];
+  $nama_freelance = $_POST['nama_freelance'];
+  $status_freelance = $_POST['status_freelance'];
+  $No_HP = $_POST['No_HP'];
+  $freelance_email = $_POST['freelance_email'];
+  $message = $_POST['massage'];
+  $image1 = $_FILES['image1']['name'];
+  $temp_image1 = $_FILES['image1']['tmp_name'];
+
+  // Direktori tujuan untuk menyimpan gambar
+  $target_dir = 'C:/xampp/htdocs/servizio-1/php/images/';
+
+  // Path lengkap ke file tujuan
+  $target_path1 = $target_dir . $image1;
+
+  move_uploaded_file($temp_image1, $target_path1);
+
+  $edit_freelance = "UPDATE freelance SET id_kategori='$id_kategori', nama_freelance='$nama_freelance', status_freelance='$status_freelance', No_HP='$No_HP', foto_Freelance='$image1', freelance_email='$freelance_email', massage='$message'
+  WHERE id_freelance='$id_freelance'";
+  $result = mysqli_query($conn, $edit_freelance);
+
+  if ($result) {
+      echo "<script>alert('Success')</script>";
       header('Location: admin_manageFreelance.php');
-  
-    }
-  
+      exit();
+  } else {
+      echo "<script>alert('Failed to update data.')</script>";
   }
-  }
-  
-  
-  
-
-
-
-
-
-
+}
 ?>

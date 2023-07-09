@@ -274,7 +274,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
             </div>
           </div>
@@ -305,7 +305,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -343,7 +343,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
             </div>
           </div>
@@ -374,7 +374,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -413,7 +413,7 @@ else{
                      <div class='grid lg:grid-cols-4 sm:grid-cols-2 gap-6'>
                      <div class='group rounded bg-dark shadow overflow-hidden'>
                 <div class='relative'>
-                  <img src='images/$image' class='w-full' />
+                  <img src='images/$image' class='w-full h-60 object-cover' />
                   <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
                     
                   </div>
@@ -445,7 +445,7 @@ else{
                 </div>
                 ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -489,7 +489,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
               
             </div>
@@ -521,7 +521,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -559,7 +559,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
               
             </div>
@@ -591,7 +591,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -628,7 +628,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
               
             </div>
@@ -660,7 +660,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->
@@ -698,7 +698,7 @@ else{
                $avg_rating = $baris['avg_rating'];
                echo"
           <div class='relative'>
-            <img src='images/$image' class='w-full' />
+            <img src='images/$image' class='w-full h-60 object-cover' />
             <div class='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
               
             </div>
@@ -730,7 +730,7 @@ else{
           </div>
           ";
                     if ($status == 'unavailable') {
-                        echo "<h1 class='bg-red-500 bg-opacity-30 text-red-500 px-1 py-2 font-semibold rounded-md text-sm'>$status</h1>";
+                        echo "<h1 class='block w-full py-1 text-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50  transition'>$status</h1>";
                     }
                     echo "   
           <!-- product content end -->

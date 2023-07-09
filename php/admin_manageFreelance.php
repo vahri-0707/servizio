@@ -1,13 +1,12 @@
 <?php 
 include 'connect.php';
-session_start();
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
-  $loggedin= true;
-}
-else{
-  $loggedin = false;
-  $userId = 0;
-}
+// session_start();
+
+// if (!isset($_SESSION['loggedin'])) {
+//   // redirect ke halaman login
+//   header("Location: login.php");
+//   exit;
+// }
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +21,7 @@ else{
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+  
   </head>
   <body class="bg-darkest font-poppins">
     <div class="min-h-screen bg-darkest font-poppins">
@@ -282,12 +282,12 @@ else{
                 $freelance_email=$baris['freelance_email'];
                 echo"
                 <tr class='bg-dark border-b'>
-                  <td class='flex items-center justify-center py-4 text-white'>
+                  <td class='flex items-center justify-start px-12 py-4 text-white'>
                   <img
                   src='../php/images/$image1' alt='' 
                   class='w-10 h-10 object-cover rounded-full' />
-                  <div class='pl-3'>
-                    <div class='text-base font-semibold'>$nama_freelance</div>
+                  <div class='text-left pl-3'>
+                    <div class='text-base font-semibold text-red-400'>$nama_freelance</div>
                     <div class='font-normal text-gray-400'>$freelance_email</div>
                   </div>
                   </td>
@@ -299,7 +299,7 @@ else{
                   </div>
                 </td>
                 <td class='px-6 py-4'>
-                <a href= 'admin_edit_Freelance.php?id=$id_freelance'>
+                <a href= 'edit_freelance.php?id=$id_freelance'>
                   <button
                     type='button'
                     name='edit_freelance'
@@ -308,17 +308,35 @@ else{
                     <img class='w-6' src='images/edit.png' alt='' />
                   </button>
     
-                  <a href= 'admin_delete_freelance.php?id_freelance=$id_freelance'>
-                  <button
-                    type='button'
-                    class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2'
-                  >
+                  </a>
+                  <button type='button' class='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-3 text-center mr-2' onclick='confirmDelete($id_freelance)'>
                     <img class='w-6' src='images/delete.png' alt='' />
                   </button>
-                  </a>
                 </td>
                   </tr>
                   ";
+                  
+              echo "
+              <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              <script>
+                function confirmDelete(id_freelance) {
+                  Swal.fire({
+                    title: 'Konfirmasi Hapus Data!',
+                    text: 'Apakah Anda yakin ingin menghapus data ini?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      
+                      window.location.href = 'admin_delete_freelance.php?id_freelance=' + id_freelance;
+                    }
+                  });
+                }
+              </script>
+              ";
               }}
                 ?>
             </tbody>
